@@ -17,75 +17,68 @@
 
 body {
     font-family: Georgia, serif;
-    background-color: #f7f5ec;
+    background-color: #f5f1e8;
     text-align: center;
 }
 
 header {
-    padding: 20px 10px;
-    background-color: #f7f5ec;
+    padding: 25px 15px;
+    background-color: #174d32;
+    color: white;
 }
 
-.tree-image {
-    width: 100%;
-    max-width: 1200px;
-    height: 480px;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    margin: auto;
-}
-
-h1 {
+header h1 {
     font-size: 38px;
-    color: #244b32;
-    letter-spacing: 3px;
-    margin: 25px 10px 12px;
+    margin-bottom: 12px;
 }
 
 .tagline {
     font-size: 21px;
-    color: #72552e;
-    margin: 10px;
     font-style: italic;
+    letter-spacing: 1px;
 }
 
-h2 {
-    font-size: 29px;
-    color: #244b32;
-    margin: 30px 10px;
+.tree-container {
+    width: 100%;
+    padding: 20px 10px;
+    background-color: #e8f0df;
 }
 
-nav {
-    background-color: #244b32;
-    padding: 15px;
+.tree-container img {
+    width: 100%;
+    max-width: 1100px;
+    height: 520px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 19px;
-    padding: 10px 25px;
+.welcome {
+    padding: 35px 15px;
+    color: #174d32;
+}
+
+.welcome h2 {
+    font-size: 32px;
 }
 
 @media (max-width: 600px) {
 
-    .tree-image {
-        height: 300px;
-    }
-
-    h1 {
-        font-size: 27px;
+    header h1 {
+        font-size: 28px;
     }
 
     .tagline {
         font-size: 16px;
     }
 
-    h2 {
-        font-size: 23px;
+    .tree-container img {
+        height: 350px;
     }
 
+    .welcome h2 {
+        font-size: 24px;
+    }
 }
 
 </style>
@@ -95,23 +88,26 @@ nav a {
 
 <header>
 
-<img src="Our_Family_Heritage_Banner.jpg"
-     alt="Big Banyan Tree"
-     class="tree-image">
+    <h1>Kotecha Family Heritage</h1>
 
-<h1>KOTECHA FAMILY HERITAGE</h1>
-
-<p class="tagline">
-Preserving Our Past, Connecting Our Future
-</p>
-
-<h2>Welcome to Kotecha Family Heritage</h2>
+    <p class="tagline">
+        Preserving Our Past, Connecting Our future
+    </p>
 
 </header>
 
-<nav>
-<a href="index.html">Home</a>
-</nav>
+<section class="tree-container">
+
+    <img src="banyan_tree_new.jpeg"
+         alt="Beautiful Banyan Tree">
+
+</section>
+
+<section class="welcome">
+
+    <h2>Welcome to kotecha family heritage</h2>
+
+</section>
 
 </body>
 </html>
