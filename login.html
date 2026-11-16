@@ -65,8 +65,63 @@ padding: 20px;
 <main>
 <h2>Member Login</h2>
 <p>Welcome to Kotecha Family Heritage.</p>
-<p>Secure Member Login facility will be available soon.</p>
-<p>Only registered family members will be able to access family records.</p>
+
+
+
+
+<form id="loginForm">
+
+    <label>Email Address</label><br>
+    <input type="email" id="email" required
+    placeholder="Enter your email"><br><br>
+
+    <label>Password</label><br>
+    <input type="password" id="password" required
+    placeholder="Enter your password"><br><br>
+
+    <button type="submit">Login</button>
+
+</form>
+
+<p id="message"></p>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const message = document.getElementById("message");
+    message.innerText = "Please wait...";
+
+    try {
+        const response = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("session_id", data.session_id);
+            message.innerText = "Login Successful!";
+        } else {
+            message.innerText = data.message || "Login failed.";
+        }
+
+    } catch (error) {
+        message.innerText = "Connection error. Please try again.";
+    }
+});
+</script>
 </main>
 
 <footer>
