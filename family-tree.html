@@ -3,48 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Family Tree | Kotecha Family Heritage</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f8f5ed;
+    background: #f8f5ed;
     color: #333;
 }
+
 header {
-    background-color: #356b42;
+    background: #356b42;
     color: white;
     text-align: center;
     padding: 25px;
 }
+
 nav {
-    background-color: #244d30;
+    background: #244d30;
     padding: 15px;
     text-align: center;
 }
+
 nav a {
     color: white;
     text-decoration: none;
-    margin: 15px;
+    margin: 10px;
 }
+
 main {
-    max-width: 850px;
-    margin: 40px auto;
-    padding: 30px;
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 20px;
     background: white;
     border-radius: 10px;
-    text-align: center;
-    line-height: 1.7;
 }
+
 h2 {
     color: #356b42;
+    text-align: center;
 }
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #356b42;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #244d30;
+}
+
+#status {
+    text-align: center;
+    padding: 15px;
+    color: #356b42;
+}
+
+.member-list {
+    margin-top: 15px;
+}
+
+.member-item {
+    padding: 12px;
+    margin: 7px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fafafa;
+}
+
+.member-item:hover {
+    background: #e8f1e9;
+}
+
+.details {
+    margin-top: 25px;
+    padding: 20px;
+    background: #edf5ed;
+    border-radius: 8px;
+    display: none;
+}
+
+.details h3 {
+    color: #356b42;
+}
+
+.details p {
+    line-height: 1.7;
+}
+
+.section-title {
+    color: #356b42;
+    margin-top: 20px;
+}
+
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #356b42;
+    background: #356b42;
     color: white;
+    margin-top: 30px;
+}
+
+@media(max-width:600px) {
+    nav a {
+        display: inline-block;
+        margin: 7px;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
 }
 </style>
 </head>
@@ -66,22 +162,337 @@ footer {
 </nav>
 
 <main>
-    <h2>Our Family Tree</h2>
 
-    <p>
-        Discover the generations and relationships
-        of the Kotecha family.
-    </p>
+<h2>Our Family Tree</h2>
 
-    <p>
-        The Family Tree will be accessible to registered
-        family members after secure login is implemented.
-    </p>
+<p style="text-align:center">
+Explore the generations and relationships of the Kotecha family.
+</p>
+
+<div id="status">Checking login...</div>
+
+<div id="treeArea" style="display:none">
+
+    <h3>Total Family Members: <span id="total">0</span></h3>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search by Family ID or Name"
+        >
+
+        <button onclick="searchMembers()">Search</button>
+
+        <button onclick="showAll()">Show All</button>
+    </div>
+
+    <div id="memberList" class="member-list"></div>
+
+    <div id="memberDetails" class="details"></div>
+
+</div>
+
 </main>
 
 <footer>
     <p>© Kotecha Family Heritage</p>
 </footer>
+
+<script>
+
+const API_URL =
+"https://round-firefly-5085.disha0806.workers.dev";
+
+let members = [];
+
+function getValue(member, field) {
+
+    const key = Object.keys(member).find(
+        k => k.toLowerCase().replace(/_/g, "") ===
+             field.toLowerCase().replace(/_/g, "")
+    );
+
+    return key ? member[key] : "";
+}
+
+function getName(member) {
+
+    const first = getValue(member, "First_Name") || "";
+    const middle = getValue(member, "Middle_Name") || "";
+    const last = getValue(member, "Last_Name") || "";
+
+    return [first, middle, last]
+        .filter(Boolean)
+        .join(" ") || "Name not available";
+}
+
+function findMember(id) {
+
+    if (!id) return null;
+
+    return members.find(member =>
+        String(getValue(member, "Family_ID")) === String(id)
+    );
+}
+
+async function loadMembers() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/members",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        if (response.status === 401 ||
+            response.status === 403) {
+
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+        }
+
+        const result = await response.json();
+
+        if (Array.isArray(result)) {
+            members = result;
+        } else {
+            members =
+                result.members ||
+                result.data ||
+                result.results ||
+                [];
+        }
+
+        if (!Array.isArray(members)) {
+            throw new Error("Members data format is incorrect.");
+        }
+
+        document.getElementById("status").innerText =
+            "Family Members loaded successfully!";
+
+        document.getElementById("total").innerText =
+            members.length;
+
+        document.getElementById("treeArea").style.display =
+            "block";
+
+        showAll();
+
+    } catch (error) {
+
+        document.getElementById("status").innerText =
+            "Unable to load Family Members: " + error.message;
+
+    }
+}
+
+function showAll() {
+
+    const list = document.getElementById("memberList");
+
+    list.innerHTML = "";
+
+    document.getElementById("search").value = "";
+
+    members.forEach(member => {
+
+        const id = getValue(member, "Family_ID");
+
+        const div = document.createElement("div");
+
+        div.className = "member-item";
+
+        div.innerText =
+            getName(member) + " | Family ID: " + (id || "N/A");
+
+        div.onclick = () => showDetails(member);
+
+        list.appendChild(div);
+
+    });
+
+    document.getElementById("memberDetails").style.display =
+        "none";
+}
+
+function searchMembers() {
+
+    const query = document.getElementById("search")
+        .value.trim().toLowerCase();
+
+    const list = document.getElementById("memberList");
+
+    list.innerHTML = "";
+
+    const found = members.filter(member => {
+
+        const id = String(
+            getValue(member, "Family_ID") || ""
+        ).toLowerCase();
+
+        const name = getName(member).toLowerCase();
+
+        return id.includes(query) || name.includes(query);
+
+    });
+
+    if (found.length === 0) {
+
+        list.innerText = "No matching family member found.";
+
+        return;
+    }
+
+    found.forEach(member => {
+
+        const div = document.createElement("div");
+
+        div.className = "member-item";
+
+        div.innerText =
+            getName(member) +
+            " | Family ID: " +
+            (getValue(member, "Family_ID") || "N/A");
+
+        div.onclick = () => showDetails(member);
+
+        list.appendChild(div);
+
+    });
+
+}
+
+function showDetails(member) {
+
+    const details = document.getElementById("memberDetails");
+
+    const id = getValue(member, "Family_ID");
+
+    const fatherID = getValue(member, "Father_ID");
+    const motherID = getValue(member, "Mother_ID");
+    const spouseID = getValue(member, "Spouse_ID");
+
+    const father = findMember(fatherID);
+    const mother = findMember(motherID);
+    const spouse = findMember(spouseID);
+
+    const children = members.filter(child => {
+
+        return (
+            String(getValue(child, "Father_ID")) === String(id) ||
+            String(getValue(child, "Mother_ID")) === String(id)
+        );
+
+    });
+
+    details.innerHTML = "";
+
+    const heading = document.createElement("h3");
+    heading.textContent = getName(member);
+
+    details.appendChild(heading);
+
+    function addInfo(label, value) {
+
+        const p = document.createElement("p");
+
+        p.textContent = label + ": " + (value || "Not available");
+
+        details.appendChild(p);
+
+    }
+
+    addInfo("Family ID", id);
+    addInfo("Branch Code", getValue(member, "Branch_Code"));
+    addInfo("Gender", getValue(member, "Gender"));
+    addInfo("Date of Birth", getValue(member, "Date_of_Birth"));
+    addInfo("Generation", getValue(member, "Generation"));
+    addInfo("City", getValue(member, "City"));
+    addInfo("State", getValue(member, "State"));
+    addInfo("Country", getValue(member, "Country"));
+
+    const title = document.createElement("h3");
+    title.className = "section-title";
+    title.textContent = "Family Relationships";
+
+    details.appendChild(title);
+
+    addInfo("Father", father ? getName(father) : fatherID ? fatherID : "Not available");
+    addInfo("Mother", mother ? getName(mother) : motherID ? motherID : "Not available");
+    addInfo("Spouse", spouse ? getName(spouse) : spouseID ? spouseID : "Not available");
+
+    const childTitle = document.createElement("h3");
+    childTitle.className = "section-title";
+    childTitle.textContent = "Children (" + children.length + ")";
+
+    details.appendChild(childTitle);
+
+    if (children.length === 0) {
+
+        addInfo("Children", "No children records found");
+
+    } else {
+
+        children.forEach(child => {
+
+            const p = document.createElement("p");
+
+            const button = document.createElement("button");
+
+            button.textContent = getName(child);
+
+            button.onclick = () => showDetails(child);
+
+            p.appendChild(button);
+
+            details.appendChild(p);
+
+        });
+
+    }
+
+    details.style.display = "block";
+
+    details.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+document.getElementById("search").addEventListener(
+    "keyup",
+    function(event) {
+
+        if (event.key === "Enter") {
+            searchMembers();
+        }
+
+    }
+);
+
+loadMembers();
+
+</script>
 
 </body>
 </html>
