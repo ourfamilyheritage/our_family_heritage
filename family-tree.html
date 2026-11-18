@@ -489,7 +489,120 @@ document.getElementById("search").addEventListener(
 
     }
 );
+// EDIT MY DETAILS
 
+async function editMyDetails() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const response = await fetch(
+        "https://round-firefly-5085.disha0806.workers.dev/api/me",
+        {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }
+    );
+
+    const member = await response.json();
+
+    if (!response.ok || !member.Family_ID) {
+        alert("Unable to load your details.");
+        return;
+    }
+
+    const fields = [
+        "First_Name",
+        "Middle_Name",
+        "Last_Name",
+        "Gender",
+        "Date_Of_Birth",
+        "Mobile_Number",
+        "City",
+        "State",
+        "Country",
+        "Date_Of_Marriage",
+        "Photo",
+        "Notes"
+    ];
+
+    let formHTML = `
+        <h2>Edit My Details</h2>
+        <form id="myDetailsForm">
+    `;
+
+    fields.forEach(field => {
+        formHTML += `
+            <p>
+                <label>${field.replaceAll("_", " ")}</label><br>
+                <input type="text"
+                    id="edit_${field}"
+                    value="${String(member[field] || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")}"
+                    style="width:90%; padding:8px;">
+            </p>
+        `;
+    });
+
+    formHTML += `
+        <button type="submit">Save My Details</button>
+    </form>
+    `;
+
+    let box = document.getElementById("editMyDetailsBox");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "editMyDetailsBox";
+        document.body.prepend(box);
+    }
+
+    box.innerHTML = formHTML;
+
+    document.getElementById("myDetailsForm")
+        .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const data = {};
+
+        fields.forEach(field => {
+            data[field] =
+                document.getElementById("edit_" + field).value;
+        });
+
+        const result = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/me",
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const answer = await result.json();
+
+        alert(answer.message);
+
+    });
+}
+
+const editButton = document.createElement("button");
+
+editButton.textContent = "Edit My Details";
+
+editButton.onclick = editMyDetails;
+
+document.body.prepend(editButton);
+
+// END EDIT MY DETAILS
 loadMembers();
 
 </script>
