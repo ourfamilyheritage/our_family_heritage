@@ -112,7 +112,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         if (data.success) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("session_id", data.session_id);
-            message.innerText = "Login Successful!";
+            message.innerText = "Login Successful!";setTimeout(() => {
+    window.location.href = "family-tree.html";
+}, 1000);
         } else {
             message.innerText = data.message || "Login failed.";
         }
