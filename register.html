@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Member Registration | Kotecha Family Heritage</title>
 
 <style>
@@ -12,22 +13,26 @@ body {
     background: #f8f5ed;
     color: #333;
 }
+
 header {
     background: #356b42;
     color: white;
     text-align: center;
     padding: 25px;
 }
+
 nav {
     background: #244d30;
     padding: 15px;
     text-align: center;
 }
+
 nav a {
     color: white;
     text-decoration: none;
     margin: 10px;
 }
+
 main {
     max-width: 550px;
     margin: 40px auto;
@@ -35,10 +40,17 @@ main {
     background: white;
     border-radius: 10px;
 }
+
 h2 {
     color: #356b42;
     text-align: center;
 }
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
 input {
     width: 95%;
     padding: 12px;
@@ -46,21 +58,33 @@ input {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 button {
-    background#356b42;
-color: white;
-padding: 12px 25px;
-border: none;
-border-radius: 5px;
+    background: #356b42;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
 }
+
+#message {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
 footer {
-background: #356b42;
-color: white;
-text-align: center;
-padding: 20px;
+    background: #356b42;
+    color: white;
+    text-align: center;
+    padding: 20px;
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -77,31 +101,139 @@ padding: 20px;
 </nav>
 
 <main>
-<h2>Member Registration</h2>
-<p>Please register to become a member of our family heritage website.</p>
 
-<form>
-<label>Full Name</label>
-<input type="text" placeholder="Enter your full name">
+<h2>Member Registration</h2>
+
+<p>Register using your existing Family ID.</p>
+
+<form id="registerForm">
+
+<label>Branch Code</label>
+<input type="text"
+id="branchCode"
+placeholder="Example: B001"
+pattern="B00[1-9]|B010"
+required>
+
+<label>Family ID</label>
+<input type="text"
+id="familyId"
+placeholder="Example: OFH000709"
+required>
 
 <label>Email Address</label>
-<input type="email" placeholder="Enter your email">
+<input type="email"
+id="email"
+placeholder="Enter your email"
+required>
 
-<label>Mobile Number</label>
-<input type="tel" placeholder="Enter your mobile number">
+<label>Create Password</label>
+<input type="password"
+id="password"
+placeholder="Minimum 8 characters"
+minlength="8"
+required>
 
-<label>Family ID (if known)</label>
-<input type="text" placeholder="Enter Family ID">
+<label>Confirm Password</label>
+<input type="password"
+id="confirmPassword"
+placeholder="Confirm your password"
+required>
 
-<button type="button">Submit Registration</button>
+<button type="submit">Submit Registration</button>
+
 </form>
 
-<p>Registration requests will be reviewed by the Administrator.</p>
+<div id="message"></div>
+
 </main>
 
 <footer>
 <p>© Kotecha Family Heritage</p>
 </footer>
+
+<script>
+
+const API_URL =
+"https://round-firefly-5085.disha0806.workers.dev/api/register";
+
+document.getElementById("registerForm")
+.addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const branch_code =
+    document.getElementById("branchCode").value.trim().toUpperCase();
+
+    const family_id =
+    document.getElementById("familyId").value.trim();
+
+    const email =
+    document.getElementById("email").value.trim();
+
+    const password =
+    document.getElementById("password").value;
+
+    const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    const message =
+    document.getElementById("message");
+
+    if (password !== confirmPassword) {
+        message.style.color = "red";
+        message.textContent = "Passwords do not match.";
+        return;
+    }
+
+    message.style.color = "black";
+    message.textContent = "Please wait... Registration in progress.";
+
+    try {
+
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                family_id,
+                branch_code,
+                email,
+                password
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            message.style.color = "green";
+
+            message.innerHTML =
+            "Registration Successful! You can now Login.<br><br>" +
+            '<a href="login.html">Go to Login</a>';
+
+            document.getElementById("registerForm").reset();
+
+        } else {
+
+            message.style.color = "red";
+            message.textContent = result.message;
+
+        }
+
+    } catch (error) {
+
+        message.style.color = "red";
+        message.textContent =
+        "Connection error. Please try again.";
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>
