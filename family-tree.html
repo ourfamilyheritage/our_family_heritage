@@ -589,7 +589,13 @@ async function editMyDetails() {
 
         const answer = await result.json();
 
-        alert(answer.message);
+      if (result.ok) {
+    alert(answer.message || "Details updated successfully.");
+    document.getElementById("editMyDetailsBox").innerHTML = "";
+    await loadMembers();
+} else {
+    alert(answer.message || "Unable to update details.");
+}
 
     });
 }
