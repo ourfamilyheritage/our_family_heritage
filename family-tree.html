@@ -469,7 +469,11 @@ function showDetails(member) {
         });
 
     }
-
+const adminEditButton = document.createElement("button");
+adminEditButton.textContent = "Admin Edit Profile";
+adminEditButton.onclick = () => editFamilyMember(member);
+adminEditButton.style.margin = "10px";
+details.appendChild(adminEditButton);
     details.style.display = "block";
 
     details.scrollIntoView({
@@ -599,7 +603,101 @@ async function editMyDetails() {
 
     });
 }
+async function editFamilyMember(member) {
 
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const fields = [
+        "First_Name",
+        "Middle_Name",
+        "Last_Name",
+        "Gender",
+        "Date_Of_Birth",
+        "Father_ID",
+        "Mother_ID",
+        "Spouse_ID",
+        "Mobile_Number",
+        "Email",
+        "City",
+        "State",
+        "Country",
+        "Date_Of_Marriage",
+        "Photo",
+        "Notes",
+        "Generation"
+    ];
+
+    let formHTML = "<h2>Admin Edit Profile</h2>";
+    formHTML += '<form id="adminEditForm">';
+
+    fields.forEach(field => {
+        formHTML += `
+            <p>
+                <label>${field.replaceAll("_", " ")}</label><br>
+                <input type="text"
+                    id="admin_${field}"
+                    value="${String(member[field] || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")}"
+                    style="width:95%; padding:8px;">
+            </p>
+        `;
+    });
+
+    formHTML += '<button type="submit">Save Profile</button>';
+    formHTML += '</form>';
+
+    let box = document.getElementById("adminEditBox");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "adminEditBox";
+        document.body.appendChild(box);
+    }
+
+    box.innerHTML = formHTML;
+
+    document.getElementById("adminEditForm")
+        .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const data = {};
+
+        fields.forEach(field => {
+            data[field] =
+                document.getElementById("admin_" + field).value;
+        });
+
+        const result = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/member/" +
+            encodeURIComponent(member.Family_ID),
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const answer = await result.json();
+
+        if (result.ok) {
+            alert(answer.message);
+            box.innerHTML = "";
+            await loadMembers();
+        } else {
+            alert(answer.message || "Unable to update profile.");
+        }
+    });
+
+    box.scrollIntoView({ behavior: "smooth" });
+}
 const editButton = document.createElement("button");
 
 editButton.textContent = "Edit My Details";
