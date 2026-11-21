@@ -474,6 +474,15 @@ adminEditButton.textContent = "Admin Edit Profile";
 adminEditButton.onclick = () => editFamilyMember(member);
 adminEditButton.style.margin = "10px";
 details.appendChild(adminEditButton);
+    const historyButton = document.createElement("button");
+historyButton.textContent = "View History";
+historyButton.style.margin = "10px";
+
+historyButton.onclick = () => {
+    window.location.href = "history.html?familyId=" + encodeURIComponent(id);
+};
+
+details.appendChild(historyButton);
     details.style.display = "block";
 
     details.scrollIntoView({
