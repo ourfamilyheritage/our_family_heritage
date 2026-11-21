@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Change History | Kotecha Family Heritage</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f8f5ed;
+    color: #333;
+}
+header {
+    background: #356b42;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+}
+.record {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+button {
+    padding: 10px 18px;
+    background: #356b42;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Kotecha Family Heritage</h1>
+<p>Member Change History</p>
+</header>
+
+<main>
+<h2>Family Member Change Records</h2>
+
+<div id="history">Loading history...</div>
+
+<button onclick="location.href='family-tree.html'">
+Back to Family Tree
+</button>
+</main>
+
+<script>
+async function loadHistory() {
+
+    const params = new URLSearchParams(window.location.search);
+    const familyId = params.get("familyId");
+    const token = localStorage.getItem("token");
+    const box = document.getElementById("history");
+
+    if (!familyId) {
+        box.textContent = "Family ID is missing.";
+        return;
+    }
+
+    if (!token) {
+        box.textContent = "Please login first.";
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/member-history/" +
+            encodeURIComponent(familyId),
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            box.textContent = data.message || "Unable to load history.";
+            return;
+        }
+
+        if (!data.history || data.history.length === 0) {
+            box.textContent = "No change history available.";
+            return;
+        }
+
+        box.innerHTML = "";
+
+        data.history.forEach(item => {
+
+            const record = document.createElement("div");
+            record.className = "record";
+
+            const heading = document.createElement("h3");
+            heading.textContent = "Changed by: " + item.changed_by;
+
+            const oldTitle = document.createElement("h4");
+            oldTitle.textContent = "Previous Information";
+
+            const oldData = document.createElement("pre");
+            oldData.textContent = JSON.stringify(
+                JSON.parse(item.old_data || "{}"), null, 2
+            );
+
+            const newTitle = document.createElement("h4");
+            newTitle.textContent = "Updated Information";
+
+            const newData = document.createElement("pre");
+            newData.textContent = JSON.stringify(
+                JSON.parse(item.new_data || "{}"), null, 2
+            );
+
+            record.append(
+                heading, oldTitle, oldData, newTitle, newData
+            );
+
+            box.appendChild(record);
+        });
+
+    } catch (error) {
+        box.textContent = "Error loading history: " + error.message;
+    }
+}
+
+loadHistory();
+</script>
+
+</body>
+</html>
