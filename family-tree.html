@@ -718,7 +718,23 @@ document.body.prepend(editButton);
 
 // END EDIT MY DETAILS
 loadMembers();
+// LOGOUT FUNCTION
+async function logout() {
+    const token = localStorage.getItem("token");
 
+    if (token) {
+        await fetch("https://round-firefly-5085.disha0806.workers.dev/api/logout", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+    }
+
+    localStorage.removeItem("token");
+    alert("You have logged out successfully.");
+    window.location.href = "login.html";
+}
 </script>
 
 </body>
