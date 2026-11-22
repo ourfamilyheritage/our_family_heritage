@@ -411,6 +411,13 @@ function showDetails(member) {
     heading.textContent = getName(member);
 
     details.appendChild(heading);
+    if (getValue(member, "Photo")) {
+    const img = document.createElement("img");
+    img.src = getValue(member, "Photo");
+    img.style.width = "150px";
+    img.style.borderRadius = "10px";
+    details.appendChild(img);
+}
 
     function addInfo(label, value) {
 
