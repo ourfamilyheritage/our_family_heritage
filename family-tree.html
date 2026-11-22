@@ -628,7 +628,7 @@ if (photoFile) {
         alert("Photo upload failed: " + (uploadAnswer.message || ""));
         return;
     }
-
+data.Photo = uploadAnswer.photo;
  
 }
         const result = await fetch(
