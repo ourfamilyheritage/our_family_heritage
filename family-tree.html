@@ -688,6 +688,15 @@ async function editFamilyMember(member) {
     formHTML += '<form id="adminEditForm">';
 
     fields.forEach(field => {
+        if (field === "Photo") {
+    formHTML += `
+        <p>
+            <label>Profile Photo</label><br>
+            <input type="file" id="admin_Photo" accept="image/*">
+        </p>
+    `;
+    return;
+}
         formHTML += `
             <p>
                 <label>${field.replaceAll("_", " ")}</label><br>
@@ -719,10 +728,38 @@ async function editFamilyMember(member) {
 
         const data = {};
 
-        fields.forEach(field => {
-            data[field] =
-                document.getElementById("admin_" + field).value;
-        });
+      fields.forEach(field => {
+    if (field === "Photo") return;
+
+    data[field] = document.getElementById("admin_" + field).value;
+});
+            const photoFile = document.getElementById("admin_Photo").files[0];
+
+if (photoFile) {
+    const photoForm = new FormData();
+    photoForm.append("photo", photoFile);
+    photoForm.append("familyId", member.Family_ID);
+
+    const uploadResponse = await fetch(
+        "https://round-firefly-5085.disha0806.workers.dev/api/upload-photo",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            body: photoForm
+        }
+    );
+
+    const uploadAnswer = await uploadResponse.json();
+
+    if (!uploadResponse.ok || !uploadAnswer.url) {
+        alert("Photo upload failed: " + uploadAnswer.message);
+        return;
+    }
+
+    data.Photo = uploadAnswer.photo;
+}
 
         const result = await fetch(
             "https://round-firefly-5085.disha0806.workers.dev/api/member/" +
