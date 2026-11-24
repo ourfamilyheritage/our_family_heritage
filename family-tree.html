@@ -477,7 +477,76 @@ function showDetails(member) {
         });
 
     }
+    const adminEditButton = document.createElement("button");
 
+adminEditButton.textContent = "Admin Edit Profile";
+
+adminEditButton.onclick = () => editFamilyMember(member);
+
+adminEditButton.style.margin = "10px";
+
+details.appendChild(adminEditButton);
+const editorButton = document.createElement("button");
+
+editorButton.textContent = "Manage Editor Access";
+
+editorButton.style.margin = "10px";
+
+editorButton.onclick = async () => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const newRole = prompt(
+        "Type EDITOR to appoint or MEMBER to remove Editor permission:",
+        "EDITOR"
+    );
+
+    if (!newRole) return;
+
+    const role = newRole.trim().toLowerCase();
+
+    if (role !== "editor" && role !== "member") {
+        alert("Please enter EDITOR or MEMBER only.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/admin/editor",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+
+                body: JSON.stringify({
+                    familyId: id,
+                    role: role
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        alert(result.message || result.error ||
+              (result.success ? "Role updated." : "Operation failed."));
+
+    } catch (error) {
+
+        alert("Error: " + error.message);
+
+    }
+};
+
+details.appendChild(editorButton);
     const historyButton = document.createElement("button");
 historyButton.textContent = "View History";
 historyButton.style.margin = "10px";
