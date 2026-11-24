@@ -881,6 +881,91 @@ async function logout() {
     alert("You have logged out successfully.");
     window.location.href = "login.html";
 }
+// ADD NEW FAMILY MEMBER
+
+async function addNewMember() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const data = {};
+
+    data.First_Name = prompt("Enter First Name:");
+    if (!data.First_Name) return;
+
+    data.Middle_Name = prompt("Enter Middle Name:") || "";
+    data.Last_Name = prompt("Enter Last Name:") || "";
+
+    data.Gender = prompt("Enter Gender (Male/Female):") || "";
+    data.Date_Of_Birth = prompt("Enter Date of Birth (YYYY-MM-DD):") || "";
+
+   data.Father_ID = prompt("Enter Father's Family ID:") || "";
+
+if (!data.Father_ID) {
+    data.Branch_Code = prompt("Enter Branch Code (Admin only):") || "";
+}
+
+    data.Mother_ID = prompt("Enter Mother's Family ID:") || "";
+    data.Spouse_ID = prompt("Enter Spouse ID:") || "";
+
+    data.Mobile_Number = prompt("Enter Mobile Number:") || "";
+    data.Email = prompt("Enter Email:") || "";
+    data.City = prompt("Enter City:") || "";
+    data.State = prompt("Enter State:") || "";
+    data.Country = prompt("Enter Country:") || "";
+
+    data.Date_Of_Marriage = prompt("Enter Marriage Date (YYYY-MM-DD):") || "";
+    data.Notes = prompt("Enter Notes:") || "";
+
+    try {
+
+        const response = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/member/add",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert(
+                "New Member Added Successfully!\n" +
+                "Family ID: " + result.family_id +
+                "\nBranch Code: " + result.branch_code
+            );
+
+            loadMembers();
+
+        } else {
+            alert(result.message);
+        }
+
+    } catch (error) {
+        alert("Error adding family member: " + error.message);
+    }
+}
+
+// ADD NEW MEMBER BUTTON
+
+const addMemberButton = document.createElement("button");
+
+addMemberButton.textContent = "Add New Family Member";
+
+addMemberButton.onclick = addNewMember;
+
+document.body.prepend(addMemberButton);
+
+// END ADD NEW FAMILY MEMBER    
 </script>
 
 </body>
