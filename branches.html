@@ -1,102 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Branches | Kotecha Family Heritage</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f8f5ed;
-            color: #333;
-        }
-
-        header {
-            background-color: #356b42;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
-
-        nav {
-            background-color: #244d30;
-            padding: 15px;
-            text-align: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 15px;
-        }
-
-        main {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 10px;
-            line-height: 1.7;
-            text-align: center;
-        }
-
-        h2 {
-            color: #356b42;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #356b42;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Branches | Kotecha Family Heritage</title>
+<style>
+:root{--forest:#214b35;--green:#356b42;--gold:#c69a45;--cream:#f7f4eb;--ink:#26352b;--muted:#68766b;--line:#e5e0d2;--white:#fff;}
+*{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif}
+header{background:linear-gradient(125deg,#183d2b,#47764b);color:#fff;padding:34px 18px 28px;text-align:center;position:relative;overflow:hidden}
+header:before,header:after{content:"✦";position:absolute;color:#ffffff20;font-size:100px;top:-15px}header:before{left:7%}header:after{right:7%}
+.brand{font-size:clamp(25px,4vw,36px);letter-spacing:.4px;margin:0 0 8px} .tagline{font:italic 15px Arial,sans-serif;color:#e5eadf;letter-spacing:1px}
+nav{background:#244d30;display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:12px}
+nav a{color:#fff;text-decoration:none;font:14px Arial,sans-serif;padding:9px 13px;border-radius:20px}nav a:hover,nav a.active{background:#ffffff22}
+main{max-width:1120px;margin:32px auto;padding:0 18px 50px}
+.intro{text-align:center;margin:0 auto 26px;max-width:780px}.eyebrow{font:700 11px Arial,sans-serif;letter-spacing:3px;color:#a27b34;text-transform:uppercase}
+h1{font-size:clamp(28px,4vw,40px);color:var(--forest);margin:10px 0}.intro p{font:15px/1.7 Arial,sans-serif;color:var(--muted);margin:8px 0}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0 30px}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 20px;min-width:145px;text-align:center;box-shadow:0 4px 15px #233b2410}.stat strong{display:block;font-size:23px;color:var(--forest)}.stat span{font:11px Arial,sans-serif;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
+.legend{text-align:center;color:var(--muted);font:12px Arial,sans-serif;margin:0 0 22px}
+.root-wrap{display:flex;justify-content:center;margin:0 auto 22px}.tree-node{width:100%;max-width:800px}
+.root-card{background:linear-gradient(135deg,#173e2c,#356b42);color:#fff;border:2px solid #c6a15c;border-radius:18px;padding:22px 20px;text-align:center;box-shadow:0 10px 25px #1d3b2820;position:relative}
+.root-card .small{font:700 10px Arial,sans-serif;letter-spacing:2px;color:#e6c982;text-transform:uppercase}.root-card h2{font-size:24px;margin:8px 0 5px}.root-card p{font:13px Arial,sans-serif;color:#e4eee5;margin:0}
+.root-actions{margin-top:14px}button{cursor:pointer;border:0;font:600 13px Arial,sans-serif}
+.root-toggle,.toggle{border-radius:22px;padding:10px 17px;background:#f1dfb7;color:#284b34;margin-top:14px}.root-toggle:hover,.toggle:hover{background:#fff}
+.connector{width:2px;height:24px;background:#c7b47e;margin:0 auto}
+.root-children{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;position:relative}
+.root-children:before{content:"";position:absolute;top:-1px;left:25%;right:25%;height:2px;background:#c7b47e}
+.root-branch{background:#fff;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:16px;padding:18px;box-shadow:0 5px 18px #203b2510;position:relative}
+.root-branch:before{content:"";position:absolute;width:2px;height:17px;background:#c7b47e;top:-21px;left:50%}
+.branch-heading{display:flex;gap:12px;align-items:flex-start}.badge{flex:none;background:#edf3e9;color:var(--forest);font:700 11px Arial,sans-serif;padding:7px 9px;border-radius:8px}
+.branch-heading h3{font-size:19px;margin:1px 0 5px;color:var(--forest)}.branch-heading p{font:12px/1.5 Arial,sans-serif;color:var(--muted);margin:0}
+.branch-meta{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:14px;padding-top:11px;color:var(--muted);font:11px Arial,sans-serif}
+.children{margin:14px 0 0 14px;padding-left:16px;border-left:2px solid #e5d8b9;display:grid;gap:10px}
+.children[hidden]{display:none}
+.child-card{background:#fcfbf7;border:1px solid #e9e3d5;border-radius:12px;padding:12px 13px;position:relative}
+.child-card:before{content:"";position:absolute;left:-18px;top:23px;width:16px;height:2px;background:#e5d8b9}
+.child-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.child-title{display:flex;gap:9px;align-items:flex-start;min-width:0}.child-title h4{font-size:15px;color:#2c5339;margin:1px 0 4px;line-height:1.3}.child-title p{font:11px Arial,sans-serif;color:var(--muted);margin:0}
+.code{font:700 10px Arial,sans-serif;color:#8a6a2e;background:#f5eedf;border-radius:6px;padding:5px 7px;white-space:nowrap}
+.toggle{background:#e9f0e5;color:#31583b;padding:7px 12px;margin:8px 0 0;font-size:11px}
+.branch-detail{font:12px/1.6 Arial,sans-serif;color:#69766a;margin:9px 0 0;padding-top:9px;border-top:1px dashed #e3dccd}.branch-detail b{color:#355b3c}
+.empty{font:12px Arial,sans-serif;color:#8a8f84;padding:8px 0}
+.group-label{font:700 11px Arial,sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:#9a7739;margin:18px 0 10px}
+.daughters{border-top:1px dashed #e1d8c4;margin-top:18px;padding-top:15px}
+footer{background:#244d30;color:#e5eadf;text-align:center;padding:20px;font:12px Arial,sans-serif}
+@media(max-width:650px){.root-children{grid-template-columns:1fr;gap:20px}.root-children:before{display:none}.root-branch:before{display:none}.root-branch{padding:15px}main{margin-top:22px}.stat{min-width:105px;padding:10px 13px}}
+</style>
 </head>
-
 <body>
-
-<header>
-    <h1>Kotecha Family Heritage</h1>
-    <p>Preserving Our Past, Connecting Our Future</p>
-</header>
-
+<header><h1 class="brand">Kotecha Family Heritage</h1><div class="tagline">Preserving Our Past, Connecting Our Future</div></header>
 <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="history.html">History</a>
-    <a href="branches.html">Branches</a>
-    <a href="contact.html">Contact Us</a>
+<a href="index.html">Home</a><a href="about.html">About</a><a href="history.html">History</a><a class="active" href="branches.html">Family Branches</a><a href="family-tree.html">Family Tree</a><a href="contact.html">Contact</a>
 </nav>
-
 <main>
-    <h2>Our Family Branches</h2>
-
-    <p>
-        The Kotecha family has a rich heritage spanning
-        several generations.
-    </p>
-
-    <p>
-        Our family branches represent the different
-        generations and descendants of our ancestors.
-    </p>
-
-    <p>
-        This section will help family members explore
-        their ancestral branches and family connections.
-    </p>
-
-    <p>
-        Detailed branch information will be added
-        after verification of family records.
-    </p>
+<section class="intro">
+<div class="eyebrow">Our roots • Our generations • Our legacy</div>
+<h1>The Kotecha Family Branches</h1>
+<p>हर पीढ़ी की कहानी, एक ही जड़ से जुड़ी हुई। नीचे परिवार की जड़ों से शुरू करके किसी भी शाखा को खोलें और अगली पीढ़ियों तक पहुँचें।</p>
+<div class="stats">
+<div class="stat"><strong>851</strong><span>Family records</span></div>
+<div class="stat"><strong>10</strong><span>Main branches</span></div>
+<div class="stat"><strong>134</strong><span>Branch codes</span></div>
+</div>
+<p class="legend">किसी कार्ड पर <b>Open Branch</b> दबाएँ। हर स्तर पर अगली पीढ़ी की शाखाएँ दिखाई देंगी।</p>
+</section>
+<div class="root-wrap"><div class="tree-node">
+<div class="root-card"><div class="small">The earliest known ancestor • Main Root</div><h2>Shree Raghunath Malji Kotecha</h2><p>परिवार की सबसे पुरानी ज्ञात जड़</p><button class="root-toggle" id="rootToggle">Explore Family Roots ↓</button></div>
+<div class="connector"></div>
+<div class="root-children" id="rootChildren">
+<section class="root-branch">
+<div class="branch-heading"><span class="badge">ROOT</span><div><h3>Shree Lalchandji Kotecha</h3><p>Shree Raghunath Malji के पुत्र • आगे B001 से B010 तक की मुख्य शाखाएँ</p></div></div>
+<div class="branch-meta"><span>2nd Generation</span><span>10 main branches</span></div>
+<div class="group-label">Sons' Family Branches</div><div id="sonsTree" class="children"></div>
+<div class="daughters"><div class="group-label">Daughters' Family Connections</div><div id="daughtersTree" class="children"></div></div>
+</section>
+<section class="root-branch">
+<div class="branch-heading"><span class="badge">ROOT</span><div><h3>Shree Tarachandji Kotecha</h3><p>Shree Raghunath Malji के पुत्र • उपलब्ध रिकॉर्ड में आगे की शाखाएँ दर्ज नहीं हैं।</p></div></div>
+<div class="branch-meta"><span>2nd Generation</span><span>Youngest son</span></div>
+<div class="branch-detail">Family book के अनुसार Shree Tarachandji का कम आयु में निधन हुआ। इस Excel रिकॉर्ड में उनके अंतर्गत आगे के वंशज दर्ज नहीं हैं।</div>
+</section>
+</div></div></div>
 </main>
-
-<footer>
-    <p>© Kotecha Family Heritage</p>
-</footer>
-
-</body>
-</html>
+<footer>© Kotecha Family Heritage • Preserving our family legacy for generations to come</footer>
+<script>
+const BRANCHES = [{"code": "B001", "name": "Shree Moolchandji Lalchandji", "fullName": "Shree Moolchandji Lalchandji Kotecha", "count": 2}, {"code": "B001-01", "name": "Shree Ratan Chandji Moolchandji", "fullName": "Shree Ratan Chandji Moolchandji Kotecha", "count": 2}, {"code": "B001-02", "name": "Shree Bhag Chandji Moolchandji", "fullName": "Shree Bhag Chandji Moolchandji Kotecha", "count": 2}, {"code": "B001-03", "name": "Shree Bhau Lalji Moolchandji", "fullName": "Shree Bhau Lalji Moolchandji Kotecha", "count": 2}, {"code": "B001-04", "name": "Shree Champa Lalji Moolchandji", "fullName": "Shree Champa Lalji Moolchandji Kotecha", "count": 2}, {"code": "B001-01-01", "name": "Shree Jawahar Lalji Ratan Chandji", "fullName": "Shree Jawahar Lalji Ratan Chandji Kotecha", "count": 5}, {"code": "B001-01-02", "name": "Shree Manna Lalji Ratan Chandji", "fullName": "Shree Manna Lalji Ratan Chandji Kotecha", "count": 18}, {"code": "B001-01-03", "name": "Shree Bansi Lalji Ratan Chandji", "fullName": "Shree Bansi Lalji Ratan Chandji Kotecha", "count": 40}, {"code": "B001-01-04", "name": "Shree Nand Lalji Ratan Chandji", "fullName": "Shree Nand Lalji Ratan Chandji Kotecha", "count": 28}, {"code": "B001-02-01", "name": "Shree Parasmalji Bhag Chandji", "fullName": "Shree Parasmalji Bhag Chandji Kotecha", "count": 16}, {"code": "B001-02-02", "name": "Shree Ramnik Lalji Bhag Chandji", "fullName": "Shree Ramnik Lalji Bhag Chandji Kotecha", "count": 8}, {"code": "B001-02-03", "name": "Shree Rasik Lalji Bhag Chandji", "fullName": "Shree Rasik Lalji Bhag Chandji Kotecha", "count": 8}, {"code": "B001-02-04", "name": "Shree Nemi Chandji Bhag Chandji", "fullName": "Shree Nemi Chandji Bhag Chandji Kotecha", "count": 8}, {"code": "B001-02-05", "name": "Shree Kishor Chandji Bhag Chandji", "fullName": "Shree Kishor Chandji Bhag Chandji Kotecha", "count": 6}, {"code": "B001-02-06", "name": "Shree Pukhrajji", "fullName": "Shree Pukhrajji", "count": 8}, {"code": "B001-02-07", "name": "Shree Kanti Lalji", "fullName": "Shree Kanti Lalji  Lalwani", "count": 8}, {"code": "B001-03-01", "name": "Shree Swarup Chandji Bhau Lalji", "fullName": "Shree Swarup Chandji Bhau Lalji Kotecha", "count": 14}, {"code": "B001-03-02", "name": "Shree Prakash Chandji Bhau Lalji", "fullName": "Shree Prakash Chandji Bhau Lalji Kotecha", "count": 8}, {"code": "B001-03-03", "name": "Shree Subhash Chandji Bhau Lalji", "fullName": "Shree Subhash Chandji Bhau Lalji Kotecha", "count": 8}, {"code": "B001-03-04", "name": "Shree Prem Chandji Bhau Lalji", "fullName": "Shree Prem Chandji Bhau Lalji Kotecha", "count": 6}, {"code": "B001-03-05", "name": "Shree Virendra Kumarji", "fullName": "Shree Virendra Kumarji  Bhandari", "count": 12}, {"code": "B001-03-06", "name": "Shree Umedmalji", "fullName": "Shree Umedmalji  Shinghwi", "count": 10}, {"code": "B001-04-01", "name": "Shree Nawal Chandji Champa Lalji", "fullName": "Shree Nawal Chandji Champa Lalji Kotecha", "count": 16}, {"code": "B001-04-02", "name": "Shree Vijay Kumarji Champa Lalji", "fullName": "Shree Vijay Kumarji Champa Lalji Kotecha", "count": 16}, {"code": "B001-04-03", "name": "Shree Ashok Kumarji Champa Lalji", "fullName": "Shree Ashok Kumarji Champa Lalji Kotecha", "count": 8}, {"code": "B001-04-04", "name": "Shree Pramod Kumarji Champa Lalji", "fullName": "Shree Pramod Kumarji Champa Lalji Kotecha", "count": 8}, {"code": "B001-04-05", "name": "Shree Ravindra Kumarji Champa Lalji", "fullName": "Shree Ravindra Kumarji Champa Lalji Kotecha", "count": 8}, {"code": "B001-04-06", "name": "Shree Abhay Kumarji", "fullName": "Shree Abhay Kumarji  Daga", "count": 20}, {"code": "B002", "name": "Shree Motilalji Lalchandji", "fullName": "Shree Motilalji Lalchandji Kotecha", "count": 2}, {"code": "B002-01", "name": "Shree Ram Lalji Motilalji", "fullName": "Shree Ram Lalji Motilalji Kotecha", "count": 2}, {"code": "B002-02", "name": "Shree Rikhab Dasji Motilalji", "fullName": "Shree Rikhab Dasji Motilalji Kotecha", "count": 2}, {"code": "B002-03", "name": "Shree Bhimrajji Motilalji", "fullName": "Shree Bhimrajji Motilalji Kotecha", "count": 2}, {"code": "B002-04", "name": "Shree Ganpatrajji", "fullName": "Shree Ganpatrajji  Zaveri", "count": 2}, {"code": "B002-05", "name": "Shree Surajmalji", "fullName": "Shree Surajmalji  Bhandari", "count": 2}, {"code": "B002-06", "name": "Shree Sharandchandraji", "fullName": "Shree Sharandchandraji  Mutha", "count": 2}, {"code": "B002-01-01", "name": "Shree Panna Lalji Ram Lalji", "fullName": "Shree Panna Lalji Ram Lalji Kotecha", "count": 26}, {"code": "B002-01-02", "name": "Shree Prem Chandji Ram Lalji", "fullName": "Shree Prem Chandji Ram Lalji Kotecha", "count": 8}, {"code": "B002-01-03", "name": "Shree Moti Lalji", "fullName": "Shree Moti Lalji  Baidmutha", "count": 6}, {"code": "B002-01-04", "name": "Shree Kisan Lalji", "fullName": "Shree Kisan Lalji  Aanchalia", "count": 8}, {"code": "B002-01-05", "name": "Shree Prakash Chandji", "fullName": "Shree Prakash Chandji  Kothari", "count": 8}, {"code": "B002-01-06", "name": "Shree Ramesh Chandji", "fullName": "Shree Ramesh Chandji  Chopada", "count": 8}, {"code": "B002-01-07", "name": "Shree Chandra Kumarji", "fullName": "Shree Chandra Kumarji  Sanghavi", "count": 2}, {"code": "B002-02-01", "name": "Shree Ramesh Chandji", "fullName": "Shree Ramesh Chandji  Lunkad", "count": 8}, {"code": "B002-02-02", "name": "Shree Shanti Lalji", "fullName": "Shree Shanti Lalji  Jhabak", "count": 10}, {"code": "B002-02-03", "name": "Shree Ramesh Chandji", "fullName": "Shree Ramesh Chandji  Bhansali", "count": 6}, {"code": "B002-02-04", "name": "Shree Pramod Kumarji", "fullName": "Shree Pramod Kumarji  Tated", "count": 6}, {"code": "B002-02-05", "name": "Shree Narendra Kumarji Rikhab Dasji", "fullName": "Shree Narendra Kumarji Rikhab Dasji Kotecha", "count": 8}, {"code": "B002-02-06", "name": "Shree Prakash Chandji Rikhab Dasji", "fullName": "Shree Prakash Chandji Rikhab Dasji Kotecha", "count": 6}, {"code": "B002-03-01", "name": "Shree Tejrajji", "fullName": "Shree Tejrajji  Gatagat", "count": 8}, {"code": "B002-03-02", "name": "Shree Rajendra Kumarji Bhimrajji", "fullName": "Shree Rajendra Kumarji Bhimrajji Kotecha", "count": 8}, {"code": "B002-03-03", "name": "Shree Suresh Chandji Bhimrajji", "fullName": "Shree Suresh Chandji Bhimrajji Kotecha", "count": 8}, {"code": "B002-03-04", "name": "Shree Subhash Chandji Bhimrajji", "fullName": "Shree Subhash Chandji Bhimrajji Kotecha", "count": 6}, {"code": "B002-03-05", "name": "Shree Ashok Kumarji Bhimrajji", "fullName": "Shree Ashok Kumarji Bhimrajji Kotecha", "count": 6}, {"code": "B003", "name": "Shree Hiralalji Lalchandji", "fullName": "Shree Hiralalji Lalchandji Kotecha", "count": 2}, {"code": "B003-01", "name": "Shree Kanti Lalji Hiralalji", "fullName": "Shree Kanti Lalji Hiralalji Kotecha", "count": 2}, {"code": "B003-02", "name": "Shree Poonam Chandji Hiralalji", "fullName": "Shree Poonam Chandji Hiralalji Kotecha", "count": 2}, {"code": "B003-03", "name": "Shree Magan Lalji Hiralalji", "fullName": "Shree Magan Lalji Hiralalji Kotecha", "count": 2}, {"code": "B003-04", "name": "Shree Dharam Chandji Hiralalji", "fullName": "Shree Dharam Chandji Hiralalji Kotecha", "count": 2}, {"code": "B003-05", "name": "Shree Kawanr Lalji", "fullName": "Shree Kawanr Lalji  Kothari", "count": 2}, {"code": "B003-01-01", "name": "Shree Chandra Shekharji Kanti Lalji", "fullName": "Shree Chandra Shekharji Kanti Lalji Kotecha", "count": 16}, {"code": "B003-01-02", "name": "Shree Prem Chandji Kanti Lalji", "fullName": "Shree Prem Chandji Kanti Lalji Kotecha", "count": 12}, {"code": "B003-01-03", "name": "Shree Moolchandji", "fullName": "Shree Moolchandji  Baidmutha", "count": 44}, {"code": "B003-01-04", "name": "Shree Shanti Lalji", "fullName": "Shree Shanti Lalji  Kothari", "count": 14}, {"code": "B003-01-05", "name": "Shree Ishwar Chandji", "fullName": "Shree Ishwar Chandji  Kothari", "count": 16}, {"code": "B003-01-06", "name": "Shree Ishwar Lalji", "fullName": "Shree Ishwar Lalji  Sanklecha", "count": 8}, {"code": "B003-02-01", "name": "Shree Ashok Kumarji Poonam Chandji", "fullName": "Shree Ashok Kumarji Poonam Chandji Kotecha", "count": 10}, {"code": "B003-02-02", "name": "Shree Abhay Kumarji Poonam Chandji", "fullName": "Shree Abhay Kumarji Poonam Chandji Kotecha", "count": 8}, {"code": "B003-02-03", "name": "Shree Arvind Kumarji Poonam Chandji", "fullName": "Shree Arvind Kumarji Poonam Chandji Kotecha", "count": 6}, {"code": "B003-02-04", "name": "Shree Arun Kumarji Poonam Chandji", "fullName": "Shree Arun Kumarji Poonam Chandji Kotecha", "count": 5}, {"code": "B003-02-05", "name": "Shree Atul Kumarji Poonam Chandji", "fullName": "Shree Atul Kumarji Poonam Chandji Kotecha", "count": 5}, {"code": "B003-02-06", "name": "Shree Harak Chandji", "fullName": "Shree Harak Chandji  Bhansali", "count": 10}, {"code": "B003-02-07", "name": "Shree Mahendra Kumarji", "fullName": "Shree Mahendra Kumarji  Lodha", "count": 8}, {"code": "B003-02-08", "name": "Shree Suresh Chandji", "fullName": "Shree Suresh Chandji  Tatiya", "count": 8}, {"code": "B003-04-01", "name": "Shree Prakash Chandji", "fullName": "Shree Prakash Chandji  Kothari", "count": 10}, {"code": "B003-04-02", "name": "Shree Vinay Kumarji Dharam Chandji", "fullName": "Shree Vinay Kumarji Dharam Chandji Kotecha", "count": 9}, {"code": "B003-04-03", "name": "Shree Ajay Kumarji Dharam Chandji", "fullName": "Shree Ajay Kumarji Dharam Chandji Kotecha", "count": 6}, {"code": "B003-04-04", "name": "Shree Kishor Kumarji Dharam Chandji", "fullName": "Shree Kishor Kumarji Dharam Chandji Kotecha", "count": 5}, {"code": "B003-04-05", "name": "Shree Narendra Kumarji", "fullName": "Shree Narendra Kumarji  Gothi", "count": 9}, {"code": "B003-04-06", "name": "Ku Ujjwalaji Dharam Chandji", "fullName": "Ku Ujjwalaji Dharam Chandji Kotecha", "count": 1}, {"code": "B003-04-07", "name": "Shree Rajesh Kumarji Dharam Chandji", "fullName": "Shree Rajesh Kumarji Dharam Chandji Kotecha", "count": 6}, {"code": "B003-04-08", "name": "Shree Manoj Kumarji", "fullName": "Shree Manoj Kumarji  Marothi", "count": 5}, {"code": "B003-04-09", "name": "Shree Sharad Kumarji Dharam Chandji", "fullName": "Shree Sharad Kumarji Dharam Chandji Kotecha", "count": 4}, {"code": "B003-04-10", "name": "Shree Rohit Kumarji", "fullName": "Shree Rohit Kumarji  Lunawat", "count": 4}, {"code": "B003-04-11", "name": "Shree Deepak Kumarji Dharam Chandji", "fullName": "Shree Deepak Kumarji Dharam Chandji Kotecha", "count": 4}, {"code": "B004", "name": "Shree Sobhagmalji Lalchandji", "fullName": "Shree Sobhagmalji Lalchandji Kotecha", "count": 2}, {"code": "B004-01", "name": "Shree Kastur Chandji", "fullName": "Shree Kastur Chandji  Parakh", "count": 2}, {"code": "B004-02", "name": "Shree Bansilalji", "fullName": "Shree Bansilalji  Baidmutha", "count": 2}, {"code": "B005", "name": "Shree Manakchandji Lalchandji", "fullName": "Shree Manakchandji Lalchandji Kotecha", "count": 2}, {"code": "B005-01", "name": "Shree Chhaganmalji Manakchandji", "fullName": "Shree Chhaganmalji Manakchandji Kotecha", "count": 2}, {"code": "B005-02", "name": "Shree Mohan Lalji Manakchandji", "fullName": "Shree Mohan Lalji Manakchandji Kotecha", "count": 2}, {"code": "B005-03", "name": "Shree Magan Lalji Manakchandji", "fullName": "Shree Magan Lalji Manakchandji Kotecha", "count": 2}, {"code": "B005-04", "name": "Shree Kanhaiya Lalji Manakchandji", "fullName": "Shree Kanhaiya Lalji Manakchandji Kotecha", "count": 2}, {"code": "B005-05", "name": "Shree Sandip Kumarji Manakchandji", "fullName": "Shree Sandip Kumarji Manakchandji Kotecha", "count": 2}, {"code": "B005-06", "name": "Shree Gyan Chandji", "fullName": "Shree Gyan Chandji  Bothara", "count": 2}, {"code": "B005-07", "name": "Shree Gendmalji", "fullName": "Shree Gendmalji  Sancheti", "count": 2}, {"code": "B005-08", "name": "Shree Kisan Lalji", "fullName": "Shree Kisan Lalji  Bafna", "count": 2}, {"code": "B005-09", "name": "Shree Satish Chandraji", "fullName": "Shree Satish Chandraji  Chaudhari", "count": 2}, {"code": "B005-10", "name": "Shree Aanandi Lalji", "fullName": "Shree Aanandi Lalji  Jangad", "count": 2}, {"code": "B005-11", "name": "Shree Mishri Lalji", "fullName": "Shree Mishri Lalji  Dungarwar", "count": 2}, {"code": "B005-12", "name": "Shree Shersinghji", "fullName": "Shree Shersinghji  Surana", "count": 2}, {"code": "B005-13", "name": "Shree Kanakmalji", "fullName": "Shree Kanakmalji  Gugliya", "count": 2}, {"code": "B005-14", "name": "Shree Prakash Chandji", "fullName": "Shree Prakash Chandji  Malu", "count": 2}, {"code": "B005-15", "name": "Shree Rajendra Kumarji", "fullName": "Shree Rajendra Kumarji  Sukhani", "count": 2}, {"code": "B005-16", "name": "Shree Suresh Chandji", "fullName": "Shree Suresh Chandji  Nahar", "count": 2}, {"code": "B005-17", "name": "Shree Rajendra Kumarji", "fullName": "Shree Rajendra Kumarji  Lodha", "count": 2}, {"code": "B005-01-01", "name": "Shree Nemi Chandji Chhaganmalji", "fullName": "Shree Nemi Chandji Chhaganmalji Kotecha", "count": 6}, {"code": "B005-01-02", "name": "Dr Gulab Chandji Chhaganmalji", "fullName": "Dr Gulab Chandji Chhaganmalji Kotecha", "count": 8}, {"code": "B005-01-03", "name": "Dr Abhay Kumarji Chhaganmalji", "fullName": "Dr Abhay Kumarji Chhaganmalji Kotecha", "count": 4}, {"code": "B005-01-04", "name": "Shree Kanakmalji", "fullName": "Shree Kanakmalji  Baidmutha", "count": 4}, {"code": "B005-01-05", "name": "Shree Shankar Lalji", "fullName": "Shree Shankar Lalji  Chhajed", "count": 6}, {"code": "B005-01-06", "name": "Shree Inder Chandji", "fullName": "Shree Inder Chandji  Malu", "count": 4}, {"code": "B005-01-07", "name": "Shree Umesh Chandji", "fullName": "Shree Umesh Chandji  Baidmutha", "count": 4}, {"code": "B005-02-01", "name": "Shree Suresh Chandji Mohan Lalji", "fullName": "Shree Suresh Chandji Mohan Lalji Kotecha", "count": 3}, {"code": "B005-02-02", "name": "Shree Prakash Chandji Mohan Lalji", "fullName": "Shree Prakash Chandji Mohan Lalji Kotecha", "count": 4}, {"code": "B005-02-03", "name": "Shree Subhash Chandji Mohan Lalji", "fullName": "Shree Subhash Chandji Mohan Lalji Kotecha", "count": 5}, {"code": "B005-02-04", "name": "Shree Mahaveer Chandji Mohan Lalji", "fullName": "Shree Mahaveer Chandji Mohan Lalji Kotecha", "count": 4}, {"code": "B005-02-05", "name": "Shree Mangal Chandji Mohan Lalji", "fullName": "Shree Mangal Chandji Mohan Lalji Kotecha", "count": 4}, {"code": "B005-02-06", "name": "Shree Anil Kumarji Mohan Lalji", "fullName": "Shree Anil Kumarji Mohan Lalji Kotecha", "count": 4}, {"code": "B005-02-07", "name": "Shree Shanti Lalji", "fullName": "Shree Shanti Lalji  Gadiya", "count": 7}, {"code": "B005-02-08", "name": "Shree Subhash Chandji", "fullName": "Shree Subhash Chandji  Pagariya", "count": 6}, {"code": "B005-02-09", "name": "Shree Rishabh Kumarji", "fullName": "Shree Rishabh Kumarji  Bafna", "count": 6}, {"code": "B005-02-10", "name": "Shree Pradip Kumarji", "fullName": "Shree Pradip Kumarji  Jhambad", "count": 3}, {"code": "B005-02-11", "name": "Sushil Kumarji", "fullName": "Sushil Kumarji  Golchha", "count": 2}, {"code": "B005-03-01", "name": "Shree Anurag Ji Magan Lalji", "fullName": "Shree Anurag Ji Magan Lalji Kotecha", "count": 2}, {"code": "B005-03-02", "name": "Shree Parag Kumarji Magan Lalji", "fullName": "Shree Parag Kumarji Magan Lalji Kotecha", "count": 2}, {"code": "B005-04-01", "name": "Shree Shailesh Kumarji Kanhaiya Lalji", "fullName": "Shree Shailesh Kumarji Kanhaiya Lalji Kotecha", "count": 3}, {"code": "B005-05-01", "name": "Shree Abhitoshji Sandip Kumarji", "fullName": "Shree Abhitoshji Sandip Kumarji Kotecha", "count": 1}, {"code": "B005-17-01", "name": "Shree Ritesh Kumarji Rajendra Kumarji", "fullName": "Shree Ritesh Kumarji Rajendra Kumarji Lodha", "count": 1}, {"code": "B005-17-02", "name": "Ritaji Rajendra Kumarji", "fullName": "Ritaji Rajendra Kumarji Lodha", "count": 1}, {"code": "B006", "name": "Shreemati Sona Bai Lalchandji", "fullName": "Shreemati Sona Bai Lalchandji Kotecha", "count": 2}, {"code": "B007", "name": "Shreemati Chhoti Bai Lalchandji", "fullName": "Shreemati Chhoti Bai Lalchandji Kotecha", "count": 2}, {"code": "B008", "name": "Shreemati Ranga Bai Lalchandji", "fullName": "Shreemati Ranga Bai Lalchandji Kotecha", "count": 2}, {"code": "B009", "name": "Shreemati Meera Bai Lalchandji", "fullName": "Shreemati Meera Bai Lalchandji Kotecha", "count": 2}, {"code": "B010", "name": "Shreemati Nirmala Bai Lalchandji", "fullName": "Shreemati Nirmala Bai Lalchandji Kotecha", "count": 2}];
+const sons = new Set(["B001","B002","B003","B004","B005"]);
+const daughters = new Set(["B006","B007","B008","B009","B010"]);
+const byCode = new Map(BRANCHES.map(x=>[x.code,x]));
+const childrenOf = code => BRANCHES.filter(x=>x.code.startsWith(code+"-") && x.code.split("-").length===code.split("-").length+1);
+const directMain = codes => codes.map(c=>byCode.get(c)).filter(Boolean);
+function descendantCount(code){return BRANCHES.filter(x=>x.code===code || x.code.startsWith(code+"-")).reduce((n,x)=>n+x.count,0)}
+function makeCard(item,level=1){
+ const kids=childrenOf(item.code);
+ const card=document.createElement("div");card.className="child-card";
+ const top=document.createElement("div");top.className="child-top";
+ const title=document.createElement("div");title.className="child-title";
+ const name=document.createElement("div");
+ const h=document.createElement("h4");h.textContent=item.name;
+ const p=document.createElement("p");p.textContent=item.fullName;
+ name.append(h,p);title.append(name);
+ const code=document.createElement("span");code.className="code";code.textContent=item.code;
+ top.append(title,code);card.append(top);
+ const meta=document.createElement("div");meta.className="branch-meta";
+ const count=document.createElement("span");count.textContent=descendantCount(item.code)+" family records in this branch";
+ const depth=document.createElement("span");depth.textContent=kids.length?kids.length+" next-generation branches":"End of recorded branch";
+ meta.append(count,depth);card.append(meta);
+ const detail=document.createElement("div");detail.className="branch-detail";detail.hidden=true;
+ detail.innerHTML="<b>Branch:</b> "+item.code+" &nbsp; <b>Branch member:</b> "+escapeHtml(item.fullName)+"<br><b>Records in this exact code:</b> "+item.count+"<br><b>Records including all child branches:</b> "+descendantCount(item.code);
+ card.append(detail);
+ if(kids.length){
+   const btn=document.createElement("button");btn.className="toggle";btn.textContent="Open "+kids.length+" child branch"+(kids.length===1?"":"es")+" ↓";
+   const wrap=document.createElement("div");wrap.className="children";wrap.hidden=true;
+   kids.forEach(k=>wrap.append(makeCard(k,level+1)));
+   btn.addEventListener("click",()=>{wrap.hidden=!wrap.hidden;btn.textContent=wrap.hidden?"Open "+kids.length+" child branch"+(kids.length===1?"":"es")+" ↓":"Close child branches ↑"});
+   card.append(btn,wrap);
+ } else {
+   const btn=document.createElement("button");btn.className="toggle";btn.textContent="View branch details +";
+   btn.addEventListener("click",()=>{detail.hidden=!detail.hidden;btn.textContent=detail.hidden?"View branch details +":"Hide details −"});
+   card.append(btn);
+ }
+ return card;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+directMain(["B001","B002","B003","B004","B005"]).forEach(x=>document.getElementById("sonsTree").append(makeCard(x)));
+directMain(["B006","B007","B008","B009","B010"]).forEach(x=>document.getElementById("daughtersTree").append(makeCard(x)));
+document.getElementById("rootToggle").addEventListener("click",()=>{
+ const area=document.getElementById("rootChildren");area.hidden=!area.hidden;
+ document.getElementById("rootToggle").textContent=area.hidden?"Explore Family Roots ↓":"Hide Family Roots ↑";
+});
+</script>
+</body></html>
