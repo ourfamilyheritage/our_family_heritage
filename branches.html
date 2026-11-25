@@ -112,4 +112,17 @@ function makeCard(item,level=1){
    const btn=document.createElement("button");btn.className="toggle";btn.textContent="Open "+kids.length+" child branch"+(kids.length===1?"":"es")+" ↓";
    const wrap=document.createElement("div");wrap.className="children";wrap.hidden=true;
    kids.forEach(k=>wrap.append(makeCard(k,level+1)));
-   btn.addEventL
+   btn.addEventListener("click",()=>{wrap.hidden=!wrap.hidden;btn.textContent=wrap.hidden?"Open "+kids.length+" child branch"+(kids.length===1?"":"es")+" ↓":"Close child branches ↑"});
+   card.append(btn,wrap);
+ }
+ return card;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+directMain(["B001","B002","B003","B004","B005"]).forEach(x=>document.getElementById("sonsTree").append(makeCard(x)));
+directMain(["B006","B007","B008","B009","B010"]).forEach(x=>document.getElementById("daughtersTree").append(makeCard(x)));
+document.getElementById("rootToggle").addEventListener("click",()=>{
+ const area=document.getElementById("rootChildren");area.hidden=!area.hidden;
+ document.getElementById("rootToggle").textContent=area.hidden?"Explore Family Roots ↓":"Hide Family Roots ↑";
+});
+</script>
+</body></html>
