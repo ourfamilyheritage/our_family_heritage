@@ -1,0 +1,11 @@
+{
+  "name": "Kotecha Family Heritage",
+  "short_name": "Kotecha Heritage",
+  "description": "Preserving Our Past, Connecting Our Future",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f3e9",
+  "theme_color": "#174d32"
+}
