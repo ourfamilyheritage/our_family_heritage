@@ -1,71 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Kotecha Family Heritage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f8f5ed;
-            color: #333;
-        }
-        header {
-            background-color: #356b42;
-            color: white;
-            text-align: center;
-            padding: 25px;
-        }
-        nav {
-            background-color: #244d30;
-            padding: 15px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 15px;
-        }
-        main {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 25px;
-            background: white;
-            border-radius: 10px;
-            text-align: center;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #356b42;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile Directory | Kotecha Family Heritage</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, serif;
+    background: #f5f3e9;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(135deg, #174d32, #356b42);
+    color: white;
+    text-align: center;
+    padding: 35px 15px;
+}
+
+header h1 {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 17px;
+}
+
+nav {
+    background: #244d30;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+nav a:hover {
+    color: #f5d88b;
+}
+
+.hero {
+    text-align: center;
+    padding: 35px 15px 20px;
+}
+
+.hero h2 {
+    color: #174d32;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 25px auto;
+    padding: 25px;
+}
+
+.directory-box {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+}
+
+.directory-heading {
+    text-align: center;
+    color: #174d32;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.member-count {
+    text-align: center;
+    background: #e8f1e9;
+    color: #174d32;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 2px solid #b5cbb7;
+    border-radius: 9px;
+    font-size: 17px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #174d32;
+}
+
+.search-box button {
+    padding: 12px 22px;
+    background: #174d32;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.member-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.member-card {
+    background: #f8faf5;
+    border: 1px solid #d5e2d5;
+    border-left: 5px solid #356b42;
+    border-radius: 10px;
+    padding: 20px;
+    transition: 0.2s;
+}
+
+.member-card:hover {
+    background: #edf5ed;
+    transform: translateY(-2px);
+}
+
+.member-name {
+    color: #174d32;
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.member-id {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 13px;
+}
+
+.call-button {
+    display: inline-block;
+    background: #356b42;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.call-button:hover {
+    background: #174d32;
+}
+
+#status {
+    text-align: center;
+    padding: 25px;
+    font-size: 17px;
+    color: #174d32;
+}
+
+.no-results {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-size: 18px;
+    grid-column: 1 / -1;
+}
+
+footer {
+    background: #174d32;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    font-size: 15px;
+}
+
+@media(max-width: 650px) {
+
+    header h1 {
+        font-size: 27px;
+    }
+
+    .hero h2 {
+        font-size: 25px;
+    }
+
+    .container {
+        padding: 12px;
+    }
+
+    .directory-box {
+        padding: 18px;
+    }
+
+    .member-list {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box button {
+        width: 100%;
+    }
+
+    nav a {
+        margin: 7px;
+        font-size: 14px;
+    }
+
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
+
     <h1>Kotecha Family Heritage</h1>
+
     <p>Preserving Our Past, Connecting Our Future</p>
+
 </header>
 
 <nav>
+
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact Us</a>
+
+    <a href="about.html">The Vision Behind</a>
+
+    <a href="branches.html">Family Branches</a>
+
+    <a href="family-tree.html">Family Tree</a>
+
+    <a href="history.html">Our History</a>
+
+    <a href="login.html">Member Login</a>
+
 </nav>
 
-<main>
-    <h2>Contact Us</h2>
-    <p>Welcome to Kotecha Family Heritage.</p>
-    <p>For family-related information, corrections or suggestions, please contact the Administrator.</p>
-    <p>We welcome your contributions in preserving our family heritage.</p>
-</main>
+<section class="hero">
+
+    <h2>📱 Mobile Directory</h2>
+
+    <p>
+        Stay Connected with Our Family
+        <br>
+        One Family. Many Generations. One Shared Legacy.
+    </p>
+
+</section>
+
+<div class="container">
+
+    <div class="directory-box">
+
+        <h2 class="directory-heading">
+            Kotecha Family Members
+        </h2>
+
+        <div class="member-count">
+
+            Total Members with Mobile Numbers:
+            <span id="totalMembers">0</span>
+
+        </div>
+
+        <div id="status">
+            Loading Mobile Directory...
+        </div>
+
+        <div id="directoryArea" style="display:none;">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by Name or Family ID..."
+                >
+
+                <button onclick="showMembers()">
+                    Search
+                </button>
+
+                <button onclick="resetSearch()">
+                    Show All
+                </button>
+
+            </div>
+
+            <div id="memberList" class="member-list"></div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <footer>
+
     <p>© Kotecha Family Heritage</p>
+
+    <p>Preserving Our Past, Connecting Our Future</p>
+
 </footer>
+
+<script>
+
+// TESTING WORKER API
+const API_URL =
+"https://ofh-family-testing.disha0806.workers.dev";
+
+// FAMILY MEMBERS DATA
+let members = [];
+
+// GET MEMBER FIELD
+function getValue(member, field) {
+
+    const key = Object.keys(member).find(
+        k => k.toLowerCase().replace(/_/g, "") ===
+        field.toLowerCase().replace(/_/g, "")
+    );
+
+    return key ? member[key] : "";
+
+}
+
+// GET FULL NAME
+function getName(member) {
+
+    return [
+        getValue(member, "First_Name"),
+        getValue(member, "Middle_Name"),
+        getValue(member, "Last_Name")
+    ]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+
+}
+
+// LOAD MOBILE DIRECTORY
+async function loadDirectory() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+
+        alert("Please login first.");
+
+        window.location.href = "login.html";
+
+        return;
+
+    }
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/mobile-directory",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        if (response.status === 401 ||
+            response.status === 403) {
+
+            localStorage.removeItem("token");
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+
+            throw new Error(
+                result.message || "Unable to load directory."
+            );
+
+        }
+
+        members = result.members || [];
+
+        members = members.filter(member =>
+            getValue(member, "Mobile_Number")
+        );
+
+        members.sort((a, b) =>
+            getName(a).localeCompare(
+                getName(b),
+                "en",
+                { sensitivity: "base" }
+            )
+        );
+
+        document.getElementById("totalMembers")
+            .innerText = members.length;
+
+        document.getElementById("status").style.display =
+            "none";
+
+        document.getElementById("directoryArea").style.display =
+            "block";
+
+        showMembers();
+
+    } catch(error) {
+
+        document.getElementById("status").innerText =
+            "Unable to load Mobile Directory: " +
+            error.message;
+
+    }
+
+}
+
+// DISPLAY MEMBERS
+function showMembers() {
+
+    const search = document.getElementById("searchInput")
+        .value.trim().toLowerCase();
+
+    const list = document.getElementById("memberList");
+
+    list.innerHTML = "";
+
+    const filtered = members.filter(member => {
+
+        const name = getName(member).toLowerCase();
+
+        const id = String(
+            getValue(member, "Family_ID") || ""
+        ).toLowerCase();
+
+        return name.includes(search) ||
+               id.includes(search);
+
+    });
+
+    if (filtered.length === 0) {
+
+        list.innerHTML = `
+            <div class="no-results">
+                No matching family member found.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    filtered.forEach(member => {
+
+        const name = getName(member) || "Name Not Available";
+
+        const id = getValue(member, "Family_ID") || "";
+
+        const phone = String(
+            getValue(member, "Mobile_Number") || ""
+        ).trim();
+
+        const card = document.createElement("div");
+
+        card.className = "member-card";
+
+        const heading = document.createElement("div");
+
+        heading.className = "member-name";
+
+        heading.textContent = name;
+
+        const familyID = document.createElement("div");
+
+        familyID.className = "member-id";
+
+        familyID.textContent = "Family ID: " + id;
+
+        const call = document.createElement("a");
+
+        call.className = "call-button";
+
+        call.textContent = "☎ Call Member";
+
+        call.href = "tel:" + phone.replace(/[^\d+]/g, "");
+
+        card.appendChild(heading);
+
+        card.appendChild(familyID);
+
+        card.appendChild(call);
+
+        list.appendChild(card);
+
+    });
+
+}
+
+// RESET SEARCH
+function resetSearch() {
+
+    document.getElementById("searchInput").value = "";
+
+    showMembers();
+
+}
+
+// SEARCH ON ENTER
+document.getElementById("searchInput")
+    .addEventListener("keyup", function(event) {
+
+        if (event.key === "Enter") {
+
+            showMembers();
+
+        }
+
+    });
+
+// START
+loadDirectory();
+
+</script>
 
 </body>
 </html>
