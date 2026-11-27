@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Our Family | Kotecha Family Heritage</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px 12px;
+    font-family: "Noto Sans Devanagari", "Mangal", sans-serif;
+    background: #f5f1e6;
+    color: #302619;
+    text-align: center;
+}
+
+header {
+    background: #174d32;
+    color: white;
+    padding: 22px 10px;
+    border-radius: 10px;
+}
+
+header h1 {
+    font-size: 30px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.page-container {
+    max-width: 950px;
+    margin: 25px auto;
+    padding: 25px;
+    background: #fffdf8;
+    border: 2px solid #b18a50;
+    border-radius: 15px;
+}
+
+.main-title {
+    color: #80551f;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 25px;
+}
+
+/* FAMILY CARD */
+
+.family-card {
+    max-width: 600px;
+    margin: 35px auto;
+    padding: 35px 20px;
+    background: linear-gradient(135deg, #f8e9c9, #fff8e9);
+    border: 3px solid #b18a50;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.family-card:hover {
+    transform: scale(1.02);
+}
+
+.card-symbol {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.family-card h2 {
+    color: #704519;
+    font-size: 29px;
+    font-weight: 900;
+    line-height: 1.8;
+    margin: 10px 0;
+}
+
+.card-subtitle {
+    color: #80551f;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.click-text {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #174d32;
+    font-weight: 900;
+}
+
+/* BIOGRAPHY */
+
+#biography {
+    display: none;
+    margin-top: 30px;
+    padding: 25px 20px;
+    background: #fffaf0;
+    border: 2px solid #b18a50;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.bio-title {
+    text-align: center;
+    color: #80551f;
+    font-size: 29px;
+    font-weight: 900;
+    line-height: 1.7;
+    padding-bottom: 18px;
+    border-bottom: 3px solid #b18a50;
+    margin-bottom: 25px;
+}
+
+.bio-subtitle {
+    color: #80551f;
+    font-size: 25px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.8;
+    margin: 30px 0 18px;
+}
+
+.bio-text {
+    color: #252019;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 2;
+    text-align: justify;
+}
+
+.bio-text p {
+    margin-bottom: 22px;
+}
+
+.quote {
+    background: #f5ead5;
+    border-left: 5px solid #b18a50;
+    padding: 18px;
+    margin: 25px 0;
+    color: #704519;
+    font-size: 23px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.8;
+    border-radius: 8px;
+}
+
+.credit {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 2px solid #b18a50;
+    text-align: right;
+    color: #704519;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.9;
+}
+
+/* BUTTONS */
+
+.button {
+    display: inline-block;
+    margin: 20px 8px 5px;
+    padding: 13px 25px;
+    background: #174d32;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #286b43;
+}
+
+footer {
+    margin-top: 25px;
+    padding: 18px;
+    background: #174d32;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px 7px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .page-container {
+        padding: 18px 12px;
+    }
+
+    .main-title {
+        font-size: 26px;
+    }
+
+    .family-card {
+        padding: 25px 12px;
+    }
+
+    .family-card h2 {
+        font-size: 25px;
+    }
+
+    #biography {
+        padding: 18px 12px;
+    }
+
+    .bio-title {
+        font-size: 25px;
+    }
+
+    .bio-subtitle {
+        font-size: 22px;
+    }
+
+    .bio-text {
+        font-size: 20px;
+        line-height: 1.9;
+        text-align: left;
+    }
+
+    .quote {
+        font-size: 20px;
+    }
+
+    .credit {
+        font-size: 20px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Kotecha Family Heritage</h1>
+</header>
+
+<div class="page-container">
+
+<h1 class="main-title">ABOUT OUR FAMILY</h1>
+
+<!-- FAMILY CARD -->
+
+<div class="family-card" onclick="openBiography()">
+
+    <div class="card-symbol">🙏</div>
+
+    <h2>
+        1008 श्री श्री<br>
+        मोतीलालजी मुनिराज
+    </h2>
+
+    <p class="card-subtitle">
+        त्याग, तपस्या एवं संयममय जीवन
+    </p>
+
+    <p class="click-text">
+        पूरा परिचय पढ़ने के लिए यहाँ क्लिक करें
+    </p>
+
+</div>
+
+<!-- COMPLETE BIOGRAPHY -->
+
+<div id="biography">
+
+<h1 class="bio-title">
+स्वर्गीय 1008 पूज्य श्री मोतीलालजी मुनिवर
+</h1>
+
+<h2 class="bio-subtitle">
+त्याग, तपस्या, संयम एवं चारित्रमय जीवन की प्रेरणादायी गाथा
+</h2>
+
+<div class="bio-text">
+
+<p>
+बोदवड़ निवासी स्वर्गीय श्री लालचंदजी कोटेचा के द्वितीय सुपुत्र पूज्य श्री मोतीलालजी मुनिवर का जन्म विक्रम संवत् 1943 में बोदवड़ में हुआ था। वे बचपन से ही धार्मिक प्रवृत्ति, सरल स्वभाव, विनम्रता एवं विलक्षण व्यक्तित्व के धनी थे।
+</p>
+
+<p>
+अत्यंत संपन्न परिवार में जन्म लेने के बावजूद उनका स्वभाव अत्यंत सेवाभावी एवं परोपकारी था। प्रत्येक व्यक्ति की सहायता करना, साधु-संतों की सेवा करना, सादा जीवन व्यतीत करना तथा उच्च विचार रखना उनके जीवन के प्रमुख गुण थे।
+</p>
+
+<p>वे सदैव कहा करते थे—</p>
+
+<div class="quote">
+"मनुष्य जन्म से नहीं, कर्म से महान होता है।"
+</div>
+
+<p>
+उन्होंने अपने संपूर्ण जीवन में इस विचार को चरितार्थ करके दिखाया।
+</p>
+
+<h2 class="bio-subtitle">
+पारिवारिक जीवन एवं वैराग्य की भावना
+</h2>
+
+<p>
+पारिवारिक कर्तव्यों का निर्वहन करते हुए उनका विवाह तलेगाँव के रायसोनी परिवार की सुपुत्री सौभाग्यवती सदाबाईजी के साथ संपन्न हुआ। उनके तीन पुत्र एवं तीन पुत्रियों का जन्म हुआ।
+</p>
+
+<p>
+जब उनके सबसे छोटे पुत्र की आयु अभी दो वर्ष भी पूर्ण नहीं हुई थी, तभी उनके मन में संसार के प्रति वैराग्य की भावना प्रबल होने लगी। उनका मन सांसारिक मोह-माया से हटकर धर्म, तपस्या एवं आत्मकल्याण के मार्ग की ओर अग्रसर होने लगा।
+</p>
+
+<p>
+उन्होंने अपनी धर्मपरायण पत्नी को दीक्षा ग्रहण करने की इच्छा बताई।
+</p>
+
+<p>
+प्रारंभ में यह सुनकर पत्नी को अत्यंत दुःख हुआ, किंतु जब उन्होंने समझा कि उनके पति आत्मकल्याण एवं मोक्षमार्ग की ओर अग्रसर होना चाहते हैं, तब उन्होंने अत्यंत उदारता एवं त्याग का परिचय दिया।
+</p>
+
+<p>
+उन्होंने विचार किया कि यदि उनके पति संसार के बंधनों से मुक्त होकर परमात्म पद की प्राप्ति के मार्ग पर बढ़ना चाहते हैं, तो वे उनके इस पवित्र संकल्प में बाधक क्यों बनें?
+</p>
+
+<p>
+अंत
