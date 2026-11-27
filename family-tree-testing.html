@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Family Tree | Kotecha Family Heritage</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f8f5ed;
+    color: #333;
+}
+
+header {
+    background: #356b42;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+nav {
+    background: #244d30;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+}
+
+main {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+}
+
+h2 {
+    color: #356b42;
+    text-align: center;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #356b42;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #244d30;
+}
+
+#status {
+    text-align: center;
+    padding: 15px;
+    color: #356b42;
+}
+
+.member-list {
+    margin-top: 15px;
+}
+
+.member-item {
+    padding: 12px;
+    margin: 7px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fafafa;
+}
+
+.member-item:hover {
+    background: #e8f1e9;
+}
+
+.details {
+    margin-top: 25px;
+    padding: 20px;
+    background: #edf5ed;
+    border-radius: 8px;
+    display: none;
+}
+
+.details h3 {
+    color: #356b42;
+}
+
+.details p {
+    line-height: 1.7;
+}
+
+.section-title {
+    color: #356b42;
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #356b42;
+    color: white;
+    margin-top: 30px;
+}
+
+@media(max-width:600px) {
+    nav a {
+        display: inline-block;
+        margin: 7px;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Kotecha Family Heritage</h1>
+    <p>Preserving Our Past, Connecting Our Future</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="history.html">History</a>
+    <a href="branches.html">Branches</a>
+    <a href="family-tree.html">Family Tree</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<main>
+
+<h2>Our Family Tree</h2>
+
+<p style="text-align:center">
+Explore the generations and relationships of the Kotecha family.
+</p>
+
+<div id="status">Checking login...</div>
+
+<div id="treeArea" style="display:none">
+
+    <h3>Total Family Members: <span id="total">0</span></h3>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search by Family ID or Name"
+        >
+
+        <button onclick="searchMembers()">Search</button>
+
+        <button onclick="showAll()">Show All</button>
+    </div>
+<button id="addMemberButton" onclick="addNewMember()" style="display:none;">
+    Add New Family Member
+</button>
+    <div id="memberList" class="member-list"></div>
+
+    <div id="memberDetails" class="details"></div>
+
+</div>
+
+</main>
+
+<footer>
+    <p>© Kotecha Family Heritage</p>
+</footer>
+
+<script>
+
+const API_URL =
+"https://round-firefly-5085.disha0806.workers.dev";
+
+let members = [];
+
+function getValue(member, field) {
+
+    const key = Object.keys(member).find(
+        k => k.toLowerCase().replace(/_/g, "") ===
+             field.toLowerCase().replace(/_/g, "")
+    );
+
+    return key ? member[key] : "";
+}
+
+function getName(member) {
+
+    const first = getValue(member, "First_Name") || "";
+    const middle = getValue(member, "Middle_Name") || "";
+    const last = getValue(member, "Last_Name") || "";
+
+    return [first, middle, last]
+        .filter(Boolean)
+        .join(" ") || "Name not available";
+}
+
+function findMember(id) {
+
+    if (!id) return null;
+
+    return members.find(member =>
+        String(getValue(member, "Family_ID")) === String(id)
+    );
+}
+
+async function loadMembers() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/members",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        if (response.status === 401 ||
+            response.status === 403) {
+
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+        }
+
+        const result = await response.json();
+
+        if (Array.isArray(result)) {
+            members = result;
+        } else {
+            members =
+                result.members ||
+                result.data ||
+                result.results ||
+                [];
+        }
+
+        if (!Array.isArray(members)) {
+            throw new Error("Members data format is incorrect.");
+        }
+
+        document.getElementById("status").innerText =
+            "Family Members loaded successfully!";
+
+        document.getElementById("total").innerText =
+            members.length;
+
+        document.getElementById("treeArea").style.display =
+            "block";
+
+        showAll();
+
+    } catch (error) {
+
+        document.getElementById("status").innerText =
+            "Unable to load Family Members: " + error.message;
+
+    }
+}
+
+function showAll() {
+
+    const list = document.getElementById("memberList");
+
+    list.innerHTML = "";
+
+    document.getElementById("search").value = "";
+
+    members.forEach(member => {
+
+        const id = getValue(member, "Family_ID");
+
+        const div = document.createElement("div");
+
+        div.className = "member-item";
+
+        div.innerText =
+            getName(member) + " | Family ID: " + (id || "N/A");
+
+        div.onclick = () => showDetails(member);
+
+        list.appendChild(div);
+
+    });
+
+    document.getElementById("memberDetails").style.display =
+        "none";
+}
+
+function searchMembers() {
+
+    const query = document.getElementById("search")
+        .value.trim().toLowerCase();
+
+    const list = document.getElementById("memberList");
+
+    list.innerHTML = "";
+
+    const found = members.filter(member => {
+
+        const id = String(
+            getValue(member, "Family_ID") || ""
+        ).toLowerCase();
+
+        const name = getName(member).toLowerCase();
+
+        return id.includes(query) || name.includes(query);
+
+    });
+
+    if (found.length === 0) {
+
+        list.innerText = "No matching family member found.";
+
+        return;
+    }
+
+    found.forEach(member => {
+
+        const div = document.createElement("div");
+
+        div.className = "member-item";
+
+        div.innerText =
+            getName(member) +
+            " | Family ID: " +
+            (getValue(member, "Family_ID") || "N/A");
+
+        div.onclick = () => showDetails(member);
+
+        list.appendChild(div);
+
+    });
+
+}
+
+function showDetails(member) {
+
+    const details = document.getElementById("memberDetails");
+
+    const id = getValue(member, "Family_ID");
+
+    const fatherID = getValue(member, "Father_ID");
+    const motherID = getValue(member, "Mother_ID");
+    const spouseID = getValue(member, "Spouse_ID");
+
+    const father = findMember(fatherID);
+    const mother = findMember(motherID);
+    const spouse = findMember(spouseID);
+
+    const children = members.filter(child => {
+
+        return (
+            String(getValue(child, "Father_ID")) === String(id) ||
+            String(getValue(child, "Mother_ID")) === String(id)
+        );
+
+    });
+
+    details.innerHTML = "";
+
+    const heading = document.createElement("h3");
+    heading.textContent = getName(member);
+
+    details.appendChild(heading);
+    if (getValue(member, "Photo")) {
+    const img = document.createElement("img");
+    img.src = getValue(member, "Photo");
+    img.style.width = "150px";
+    img.style.borderRadius = "10px";
+    details.appendChild(img);
+}
+
+    function addInfo(label, value) {
+
+        const p = document.createElement("p");
+
+        p.textContent = label + ": " + (value || "Not available");
+
+        details.appendChild(p);
+
+    }
+
+    addInfo("Family ID", id);
+    addInfo("Branch Code", getValue(member, "Branch_Code"));
+    addInfo("Gender", getValue(member, "Gender"));
+    addInfo("Date of Birth", getValue(member, "Date_of_Birth"));
+    addInfo("Generation", getValue(member, "Generation"));
+    addInfo("City", getValue(member, "City"));
+    addInfo("State", getValue(member, "State"));
+    addInfo("Country", getValue(member, "Country"));
+
+    const title = document.createElement("h3");
+    title.className = "section-title";
+    title.textContent = "Family Relationships";
+
+    details.appendChild(title);
+
+    addInfo("Father", father ? getName(father) : fatherID ? fatherID : "Not available");
+    addInfo("Mother", mother ? getName(mother) : motherID ? motherID : "Not available");
+    addInfo("Spouse", spouse ? getName(spouse) : spouseID ? spouseID : "Not available");
+
+    const childTitle = document.createElement("h3");
+    childTitle.className = "section-title";
+    childTitle.textContent = "Children (" + children.length + ")";
+
+    details.appendChild(childTitle);
+
+    if (children.length === 0) {
+
+        addInfo("Children", "No children records found");
+
+    } else {
+
+        children.forEach(child => {
+
+            const p = document.createElement("p");
+
+            const button = document.createElement("button");
+
+            button.textContent = getName(child);
+
+            button.onclick = () => showDetails(child);
+
+            p.appendChild(button);
+
+            details.appendChild(p);
+
+        });
+
+    }
+    const adminEditButton = document.createElement("button");
+
+adminEditButton.textContent = "Admin Edit Profile";
+
+adminEditButton.onclick = () => editFamilyMember(member);
+
+adminEditButton.style.margin = "10px";
+
+details.appendChild(adminEditButton);
+const editorButton = document.createElement("button");
+
+editorButton.textContent = "Manage Editor Access";
+
+editorButton.style.margin = "10px";
+
+editorButton.onclick = async () => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const newRole = prompt(
+        "Type EDITOR to appoint or MEMBER to remove Editor permission:",
+        "EDITOR"
+    );
+
+    if (!newRole) return;
+
+    const role = newRole.trim().toLowerCase();
+
+    if (role !== "editor" && role !== "member") {
+        alert("Please enter EDITOR or MEMBER only.");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            API_URL + "/api/admin/editor",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+
+                body: JSON.stringify({
+                    familyId: id,
+                    role: role
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        alert(result.message || result.error ||
+              (result.success ? "Role updated." : "Operation failed."));
+
+    } catch (error) {
+
+        alert("Error: " + error.message);
+
+    }
+};
+
+details.appendChild(editorButton);
+    const historyButton = document.createElement("button");
+historyButton.textContent = "View History";
+historyButton.style.margin = "10px";
+
+historyButton.onclick = () => {
+    window.location.href = "member-history.html?familyId=" + encodeURIComponent(id);
+};
+
+details.appendChild(historyButton);
+    details.style.display = "block";
+
+    details.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+document.getElementById("search").addEventListener(
+    "keyup",
+    function(event) {
+
+        if (event.key === "Enter") {
+            searchMembers();
+        }
+
+    }
+);
+// EDIT MY DETAILS
+
+async function editMyDetails() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const response = await fetch(
+        "https://round-firefly-5085.disha0806.workers.dev/api/me",
+        {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }
+    );
+
+    const member = await response.json();
+
+    if (!response.ok || !member.Family_ID) {
+        alert("Unable to load your details.");
+        return;
+    }
+
+    const fields = [
+        "First_Name",
+        "Middle_Name",
+        "Last_Name",
+        "Gender",
+        "Date_Of_Birth",
+        "Mobile_Number",
+        "City",
+        "State",
+        "Country",
+        "Date_Of_Marriage",
+        "Photo",
+        "Notes"
+    ];
+
+    let formHTML = `
+        <h2>Edit My Details</h2>
+        <form id="myDetailsForm">
+    `;
+
+    fields.forEach(field => {
+        if (field === "Photo") {
+    formHTML += `
+        <p>
+            <label>Profile Photo</label><br>
+            <input type="file" id="edit_Photo" accept="image/*">
+        </p>
+    `;
+    return;
+}
+        formHTML += `
+            <p>
+                <label>${field.replaceAll("_", " ")}</label><br>
+                <input type="text"
+                    id="edit_${field}"
+                    value="${String(member[field] || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")}"
+                    style="width:90%; padding:8px;">
+            </p>
+        `;
+    });
+
+    formHTML += `
+        <button type="submit">Save My Details</button>
+    </form>
+    `;
+
+    let box = document.getElementById("editMyDetailsBox");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "editMyDetailsBox";
+        document.body.prepend(box);
+    }
+
+    box.innerHTML = formHTML;
+
+    document.getElementById("myDetailsForm")
+        .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const data = {};
+
+     fields.forEach(field => {
+    if (field === "Photo") return;
+    data[field] = document.getElementById("edit_" + field).value;
+});
+
+            const photoFile = document.getElementById("edit_Photo").files[0];
+
+if (photoFile) {
+    const photoForm = new FormData();
+    photoForm.append("photo", photoFile);
+
+    const uploadResponse = await fetch(
+        "https://round-firefly-5085.disha0806.workers.dev/api/upload-photo",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            body: photoForm
+        }
+    );
+
+    const uploadAnswer = await uploadResponse.json();
+
+    if (!uploadResponse.ok || !uploadAnswer.url) {
+        alert("Photo upload failed: " + (uploadAnswer.message || ""));
+        return;
+    }
+data.Photo = uploadAnswer.photo;
+ 
+}
+        const result = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/me",
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const answer = await result.json();
+
+      if (result.ok) {
+    alert(answer.message || "Details updated successfully.");
+    document.getElementById("editMyDetailsBox").innerHTML = "";
+    await loadMembers();
+} else {
+    alert(answer.message || "Unable to update details.");
+}
+
+    });
+}
+async function editFamilyMember(member) {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const fields = [
+        "First_Name",
+        "Middle_Name",
+        "Last_Name",
+        "Gender",
+        "Date_Of_Birth",
+        "Father_ID",
+        "Mother_ID",
+        "Spouse_ID",
+        "Mobile_Number",
+        "Email",
+        "City",
+        "State",
+        "Country",
+        "Date_Of_Marriage",
+        "Photo",
+        "Notes",
+        "Generation"
+    ];
+
+    let formHTML = "<h2>Admin Edit Profile</h2>";
+    formHTML += '<form id="adminEditForm">';
+
+    fields.forEach(field => {
+        if (field === "Photo") {
+    formHTML += `
+        <p>
+            <label>Profile Photo</label><br>
+            <input type="file" id="admin_Photo" accept="image/*">
+        </p>
+    `;
+    return;
+}
+        formHTML += `
+            <p>
+                <label>${field.replaceAll("_", " ")}</label><br>
+                <input type="text"
+                    id="admin_${field}"
+                    value="${String(member[field] || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")}"
+                    style="width:95%; padding:8px;">
+            </p>
+        `;
+    });
+
+    formHTML += '<button type="submit">Save Profile</button>';
+    formHTML += '</form>';
+
+    let box = document.getElementById("adminEditBox");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "adminEditBox";
+        document.body.appendChild(box);
+    }
+
+    box.innerHTML = formHTML;
+
+    document.getElementById("adminEditForm")
+        .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const data = {};
+
+      fields.forEach(field => {
+    if (field === "Photo") return;
+
+    data[field] = document.getElementById("admin_" + field).value;
+});
+            const photoFile = document.getElementById("admin_Photo").files[0];
+
+if (photoFile) {
+    const photoForm = new FormData();
+    photoForm.append("photo", photoFile);
+    photoForm.append("familyId", member.Family_ID);
+
+    const uploadResponse = await fetch(
+        "https://round-firefly-5085.disha0806.workers.dev/api/upload-photo",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            body: photoForm
+        }
+    );
+
+    const uploadAnswer = await uploadResponse.json();
+
+    if (!uploadResponse.ok || !uploadAnswer.url) {
+        alert("Photo upload failed: " + uploadAnswer.message);
+        return;
+    }
+
+    data.Photo = uploadAnswer.photo;
+}
+
+        const result = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/member/" +
+            encodeURIComponent(member.Family_ID),
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const answer = await result.json();
+
+        if (result.ok) {
+            alert(answer.message);
+            box.innerHTML = "";
+            await loadMembers();
+        } else {
+            alert(answer.message || "Unable to update profile.");
+        }
+    });
+
+    box.scrollIntoView({ behavior: "smooth" });
+}
+const editButton = document.createElement("button");
+
+editButton.textContent = "Edit My Details";
+
+editButton.onclick = editMyDetails;
+
+document.body.prepend(editButton);
+
+// END EDIT MY DETAILS
+loadMembers();
+// LOGOUT FUNCTION
+async function logout() {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        await fetch("https://round-firefly-5085.disha0806.workers.dev/api/logout", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+    }
+
+    localStorage.removeItem("token");
+    alert("You have logged out successfully.");
+    window.location.href = "login.html";
+}
+// ADD NEW FAMILY MEMBER
+
+async function addNewMember() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        return;
+    }
+
+    const data = {};
+
+    data.First_Name = prompt("Enter First Name:");
+    if (!data.First_Name) return;
+
+    data.Middle_Name = prompt("Enter Middle Name:") || "";
+    data.Last_Name = prompt("Enter Last Name:") || "";
+
+    data.Gender = prompt("Enter Gender (Male/Female):") || "";
+    data.Date_Of_Birth = prompt("Enter Date of Birth (YYYY-MM-DD):") || "";
+
+   data.Father_ID = prompt("Enter Father's Family ID:") || "";
+
+if (!data.Father_ID) {
+    data.Branch_Code = prompt("Enter Branch Code (Admin only):") || "";
+}
+
+    data.Mother_ID = prompt("Enter Mother's Family ID:") || "";
+    data.Spouse_ID = prompt("Enter Spouse ID:") || "";
+
+    data.Mobile_Number = prompt("Enter Mobile Number:") || "";
+    data.Email = prompt("Enter Email:") || "";
+    data.City = prompt("Enter City:") || "";
+    data.State = prompt("Enter State:") || "";
+    data.Country = prompt("Enter Country:") || "";
+
+    data.Date_Of_Marriage = prompt("Enter Marriage Date (YYYY-MM-DD):") || "";
+    data.Notes = prompt("Enter Notes:") || "";
+
+    try {
+
+        const response = await fetch(
+            "https://round-firefly-5085.disha0806.workers.dev/api/member/add",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert(
+                "New Member Added Successfully!\n" +
+                "Family ID: " + result.family_id +
+                "\nBranch Code: " + result.branch_code
+            );
+
+            loadMembers();
+
+        } else {
+            alert(result.message);
+        }
+
+    } catch (error) {
+        alert("Error adding family member: " + error.message);
+    }
+}
+
+// ADD NEW MEMBER BUTTON
+
+const addMemberButton = document.createElement("button");
+
+addMemberButton.textContent = "Add New Family Member";
+
+addMemberButton.onclick = addNewMember;
+
+document.body.prepend(addMemberButton);
+
+// END ADD NEW FAMILY MEMBER    
+</script>
+
+</body>
+</html>
