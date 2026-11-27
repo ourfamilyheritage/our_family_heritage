@@ -1,164 +1,819 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>About Our Family | Kotecha Heritage</title>
+<title>The Vision Behind | Kotecha Family Heritage</title>
+
+<meta name="description" content="The vision, inspiration and historical foundation behind the Kotecha Family Heritage Digital Project.">
 
 <style>
-body {
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+* {
     margin: 0;
-    padding: 25px 15px;
-    font-family: Georgia, serif;
-    background: #f8f1e5;
-    color: #49351f;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f4f0e5;
+    color: #30372f;
+    line-height: 1.85;
+}
+
+:root {
+    --green: #19472e;
+    --dark-green: #103522;
+    --gold: #b79552;
+    --light-gold: #e5d2a5;
+    --cream: #f7f3e8;
+    --white: #ffffff;
+    --text: #343b34;
+}
+
+.page-wrapper {
+    width: 100%;
+    padding: 35px 20px;
+}
+
+.main-container {
+    max-width: 1120px;
+    margin: auto;
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 45px rgba(30, 50, 35, 0.13);
+    border: 1px solid #e5dcc8;
+}
+
+
+/* =========================
+   TOP HEADER
+========================= */
+
+.hero {
+    background: linear-gradient(
+        135deg,
+        #103522,
+        #245b3b,
+        #103522
+    );
+
+    padding: 65px 30px 55px;
+    text-align: center;
+    position: relative;
+    color: white;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(224, 198, 137, 0.55);
+    border-radius: 9px;
+    pointer-events: none;
+}
+
+.hero h1 {
+    font-size: 39px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+    line-height: 1.4;
+    color: #f6e8c5;
+    position: relative;
+}
+
+.hero h2 {
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    color: #e8cb8d;
+    position: relative;
+}
+
+.hero .tagline {
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #ffffff;
+    position: relative;
+}
+
+.hero-decoration {
+    width: 115px;
+    height: 4px;
+    background: var(--gold);
+    margin: 27px auto 0;
+}
+
+
+/* =========================
+   CREATOR PROFILE
+========================= */
+
+.creator-section {
+    padding: 55px 25px 45px;
+    text-align: center;
+    background: #fffdf8;
+}
+
+.creator-photo-frame {
+    display: inline-block;
+    padding: 7px;
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    background: #f7f0dc;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    margin-bottom: 25px;
+}
+
+.creator-photo {
+    display: block;
+    width: 205px;
+    height: 205px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+    border: 3px solid white;
+}
+
+.creator-name {
+    color: var(--green);
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    line-height: 1.4;
+}
+
+.creator-relationship {
+    font-size: 18px;
+    font-weight: bold;
+    color: #665d4b;
+    margin-top: 12px;
+}
+
+.creator-line {
+    width: 90px;
+    height: 3px;
+    background: var(--gold);
+    margin: 23px auto;
+}
+
+.creator-designation {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #f3eddd;
+    border: 1px solid #d7c394;
+    border-radius: 5px;
+    color: #977333;
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.creator-project {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--green);
+    letter-spacing: 1px;
+    margin-top: 13px;
+}
+
+
+/* =========================
+   MOTTO SECTION
+========================= */
+
+.motto-section {
+    margin: 15px 45px 45px;
+    padding: 35px 25px;
+    background: linear-gradient(
+        135deg,
+        #f5f0e1,
+        #eee3c8
+    );
+
+    border: 1px solid #d7c394;
+    border-left: 7px solid var(--gold);
+    border-radius: 9px;
     text-align: center;
 }
 
-.container {
-    max-width: 850px;
-    margin: auto;
-    padding: 35px 20px;
-    background: #fffdf8;
-    border: 2px solid #b18a50;
-    border-radius: 15px;
+.motto-title {
+    font-size: 24px;
+    font-weight: 900;
+    color: #947035;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
 }
 
-h1 {
-    color: #80551f;
-    font-size: 30px;
-}
-
-h2 {
-    color: #80551f;
-}
-
-.tagline {
-    font-style: italic;
-    font-size: 17px;
-}
-
-.founder {
-    margin: 45px 0;
-    padding: 25px 10px;
-    background: #f5ead5;
-    border-radius: 12px;
-    border: 1px solid #c5a36b;
-}
-
-.founder h2 {
-    font-size: 30px;
+.motto-text {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1.65;
     letter-spacing: 1px;
 }
 
-.role {
+
+/* =========================
+   CONTENT SECTIONS
+========================= */
+
+.content-section {
+    padding: 15px 65px 40px;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--green);
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 95px;
+    height: 4px;
+    background: var(--gold);
+    margin: 18px auto 0;
+}
+
+.vision-card {
+    background: #ffffff;
+    border: 1px solid #e8dfce;
+    border-radius: 12px;
+    padding: 35px 38px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.045);
+}
+
+.vision-card p {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 2;
+    text-align: justify;
+    color: #3b413b;
+    margin-bottom: 24px;
+}
+
+.vision-card p:last-child {
+    margin-bottom: 0;
+}
+
+.vision-card p strong {
+    color: var(--green);
+    font-weight: 900;
+}
+
+
+/* =========================
+   HISTORICAL FOUNDATION
+========================= */
+
+.history-section {
+    padding: 45px 65px 55px;
+    background: #faf8f1;
+}
+
+.history-card {
+    background: linear-gradient(
+        145deg,
+        #f4eedf,
+        #fffdf8
+    );
+
+    border: 2px solid #c5a66a;
+    border-radius: 14px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+}
+
+.history-card::before {
+    content: "✦";
+    display: block;
+    color: var(--gold);
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.history-title {
+    font-size: 27px;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1.5;
+}
+
+.history-subtitle {
+    font-size: 20px;
     font-weight: bold;
-    color: #795126;
-}
-
-p {
-    font-size: 17px;
-    line-height: 1.8;
-}
-
-.section {
-    margin: 35px 0;
-}
-
-.motto {
-    color: #80551f;
-    font-size: 21px;
-    font-weight: bold;
-}
-
-a {
-    display: inline-block;
-    padding: 12px 25px;
+    color: #947035;
     margin-top: 20px;
-    background: #80551f;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
 }
+
+.history-author {
+    font-size: 22px;
+    font-weight: 900;
+    color: #343b34;
+    margin-top: 12px;
+}
+
+.history-date {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 10px 25px;
+    background: var(--green);
+    color: #fff0c9;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.history-note {
+    max-width: 760px;
+    margin: 25px auto 0;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.9;
+    color: #484b42;
+}
+
+
+/* =========================
+   CLOSING SECTION
+========================= */
+
+.closing-section {
+    background: var(--dark-green);
+    padding: 45px 25px;
+    text-align: center;
+    border-top: 5px solid var(--gold);
+}
+
+.closing-text {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+    line-height: 1.6;
+    color: #f1dfb5;
+}
+
+
+/* =========================
+   BACK TO HOME BUTTON
+========================= */
+
+.footer {
+    text-align: center;
+    padding: 35px 20px 45px;
+    background: #fffdf8;
+}
+
+.home-button {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 14px 38px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    border: 2px solid var(--gold);
+    transition: 0.3s;
+}
+
+.home-button:hover {
+    background: var(--gold);
+    color: #173b27;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .content-section,
+    .history-section {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    .vision-card {
+        padding: 28px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    body {
+        line-height: 1.8;
+    }
+
+    .page-wrapper {
+        padding: 10px;
+    }
+
+    .main-container {
+        border-radius: 11px;
+    }
+
+    .hero {
+        padding: 48px 20px 40px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+
+    .hero h2 {
+        font-size: 16px;
+        letter-spacing: 1px;
+        line-height: 1.7;
+    }
+
+    .hero .tagline {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .creator-section {
+        padding: 38px 17px 30px;
+    }
+
+    .creator-photo {
+        width: 165px;
+        height: 165px;
+    }
+
+    .creator-name {
+        font-size: 24px;
+        line-height: 1.5;
+    }
+
+    .creator-relationship {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .creator-designation {
+        font-size: 19px;
+        padding: 10px 20px;
+    }
+
+    .creator-project {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .motto-section {
+        margin: 10px 15px 35px;
+        padding: 27px 15px;
+    }
+
+    .motto-title {
+        font-size: 20px;
+    }
+
+    .motto-text {
+        font-size: 20px;
+    }
+
+    .content-section {
+        padding: 10px 17px 35px;
+    }
+
+    .section-title {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+
+    .vision-card {
+        padding: 22px 18px;
+    }
+
+    .vision-card p {
+        font-size: 17px;
+        line-height: 1.9;
+        margin-bottom: 20px;
+    }
+
+    .history-section {
+        padding: 35px 17px 40px;
+    }
+
+    .history-card {
+        padding: 30px 17px;
+    }
+
+    .history-title {
+        font-size: 22px;
+    }
+
+    .history-subtitle {
+        font-size: 17px;
+    }
+
+    .history-author {
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    .history-date {
+        font-size: 19px;
+    }
+
+    .history-note {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .closing-section {
+        padding: 35px 17px;
+    }
+
+    .closing-text {
+        font-size: 20px;
+        line-height: 1.7;
+    }
+
+    .home-button {
+        font-size: 17px;
+        padding: 12px 28px;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 360px) {
+
+    .hero h1 {
+        font-size: 23px;
+    }
+
+    .creator-name {
+        font-size: 21px;
+    }
+
+    .motto-text {
+        font-size: 18px;
+    }
+
+    .vision-card p {
+        font-size: 16px;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
+<div class="page-wrapper">
 
-<h1>ABOUT OUR FAMILY</h1>
+<div class="main-container">
 
-<h2>THE KOTECHA FAMILY HERITAGE</h2>
 
-<p class="tagline">
-Preserving Our Past, Connecting Our Future
-</p>
+<!-- =========================
+     HEADER
+========================= -->
 
-<div class="founder">
-<img src="anjali-kotecha-about.jpeg" alt="Anjali Sharad Kotecha"
-style="width:150px;height:150px;object-fit:cover;border-radius:50%;border:3px solid #c5a36b;margin-bottom:15px;">
-<h2>ANJALI SHARAD KOTECHA</h2>
-<p><strong>Daughter-in-law of Late Shri Dharam Chandji Hiralalji Kotecha</strong></p>
-<p class="role">
-FOUNDER & INITIATOR<br>
-OUR FAMILY HERITAGE DIGITAL PROJECT
-</p>
+<header class="hero">
 
-<p>
-With a vision to preserve the rich heritage
-of the Kotecha family, Anjali Sharad Kotecha
-has taken the initiative to bring generations
-together on one digital platform.
-</p>
+    <h1>THE KOTECHA FAMILY HERITAGE</h1>
 
-<p>
-Her vision is to preserve our roots,
-connect family members and pass on our
-precious family legacy to future generations.
-</p>
+    <h2>OUR VISION. OUR HERITAGE. OUR FUTURE.</h2>
 
-<h3>HER VISION. OUR HERITAGE. OUR FUTURE.</h3>
+    <div class="tagline">
+        One Family. Many Generations. One Shared Legacy.
+    </div>
+
+    <div class="hero-decoration"></div>
+
+</header>
+
+
+
+<!-- =========================
+     ANJALI PROFILE
+========================= -->
+
+<section class="creator-section">
+
+    <div class="creator-photo-frame">
+
+        <img
+            src="anjali-kotecha-about.jpeg"
+            alt="Anjali Sharad Kotecha"
+            class="creator-photo"
+        >
+
+    </div>
+
+    <h2 class="creator-name">
+        ANJALI SHARAD KOTECHA
+    </h2>
+
+    <p class="creator-relationship">
+        Daughter-in-law of Late Shri Dharam Chandji Hiralalji Kotecha
+    </p>
+
+    <div class="creator-line"></div>
+
+    <div class="creator-designation">
+        FOUNDER &amp; INITIATOR
+    </div>
+
+    <p class="creator-project">
+        OUR FAMILY HERITAGE DIGITAL PROJECT
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     OUR MOTTO
+========================= -->
+
+<section class="motto-section">
+
+    <h2 class="motto-title">
+        OUR MOTTO
+    </h2>
+
+    <p class="motto-text">
+        PRESERVING OUR PAST,<br>
+        CONNECTING OUR FUTURE
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     OUR VISION
+========================= -->
+
+<section class="content-section">
+
+    <h2 class="section-title">
+        THE VISION BEHIND THIS INITIATIVE
+    </h2>
+
+    <div class="vision-card">
+
+        <p>
+            With a heartfelt vision to preserve the rich heritage
+            and cherished legacy of the Kotecha family, I have
+            initiated this digital project to bring generations
+            together on one common platform.
+        </p>
+
+        <p>
+            The inspiration behind this initiative is to preserve
+            our roots, strengthen family bonds, reconnect generations
+            and create a lasting digital repository of our family
+            history, memories, traditions, achievements and stories.
+        </p>
+
+        <p>
+            This platform is envisioned as a place where every
+            generation can discover its roots, share experiences,
+            celebrate milestones and contribute towards keeping
+            our family legacy alive.
+        </p>
+
+        <p>
+            It is about connecting our past with the present and
+            creating a meaningful legacy for the future — so that
+            generations to come can understand where we come from,
+            cherish our values and take pride in being part of
+            the Kotecha family.
+        </p>
+
+        <p>
+            Because our heritage is not merely what we inherit;
+            it is what we preserve, nurture and proudly pass on
+            to future generations.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     HISTORICAL FOUNDATION
+========================= -->
+
+<section class="history-section">
+
+    <h2 class="section-title">
+        OUR HISTORICAL FOUNDATION
+    </h2>
+
+    <div class="history-card">
+
+        <h3 class="history-title">
+            The Original Kotecha Family Heritage Book
+        </h3>
+
+        <p class="history-subtitle">
+            Compiled and Published by
+        </p>
+
+        <p class="history-author">
+            Shri Subhashchandji Bhimrajji Kotecha
+        </p>
+
+        <div class="history-date">
+            29 April 1998
+        </div>
+
+        <p class="history-note">
+            This digital platform builds upon that valuable
+            historical foundation, carrying forward the legacy
+            of the original book into the digital age.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CLOSING
+========================= -->
+
+<section class="closing-section">
+
+    <p class="closing-text">
+        ONE FAMILY – MANY GENERATIONS – ONE HERITAGE.
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <a href="index.html" class="home-button">
+        Back to Home
+    </a>
+
+</footer>
+
 
 </div>
-
-<div class="section">
-
-<h2>OUR HISTORICAL FOUNDATION</h2>
-
-<h3>Original Heritage Book</h3>
-
-<p>
-Compiled and Published by
-</p>
-
-<h3>Shri Subhashchandji Bhimrajji Kotecha</h3>
-
-<p>
-29 April 1998
-</p>
-
-</div>
-
-<div class="section">
-
-<h2>OUR MOTTO</h2>
-
-<p class="motto">
-PRESERVING OUR PAST,<br>
-CONNECTING OUR FUTURE
-</p>
-
-<p>
-One Family – Many Generations – One Heritage.
-</p>
-
-</div>
-
-<a href="index.html">Back to Home</a>
 
 </div>
 
 </body>
+
 </html>
