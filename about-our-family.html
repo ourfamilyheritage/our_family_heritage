@@ -5,131 +5,127 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>About Our Family | Kotecha Family Heritage</title>
+<title>1008 श्री श्री मोतीलालजी मुनिराज | Kotecha Family Heritage</title>
 
 <style>
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 20px 12px;
     font-family: "Noto Sans Devanagari", "Mangal", sans-serif;
     background: #f5f1e6;
-    color: #302619;
+    color: #302719;
     text-align: center;
+    padding: 15px;
 }
 
 header {
     background: #174d32;
     color: white;
-    padding: 22px 10px;
-    border-radius: 10px;
+    padding: 24px 10px;
+    border-radius: 12px;
 }
 
 header h1 {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 900;
-    margin: 0;
 }
 
-.page-container {
-    max-width: 950px;
+.container {
+    max-width: 1000px;
     margin: 25px auto;
     padding: 25px;
     background: #fffdf8;
     border: 2px solid #b18a50;
-    border-radius: 15px;
+    border-radius: 16px;
 }
 
-.main-title {
+.page-heading {
     color: #80551f;
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 900;
     margin-bottom: 25px;
 }
 
-/* FAMILY CARD */
+/* CARD */
 
 .family-card {
-    max-width: 600px;
-    margin: 35px auto;
+    max-width: 650px;
+    margin: 30px auto;
     padding: 35px 20px;
     background: linear-gradient(135deg, #f8e9c9, #fff8e9);
     border: 3px solid #b18a50;
     border-radius: 18px;
     box-shadow: 0 5px 18px rgba(0,0,0,0.15);
     cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.family-card:hover {
-    transform: scale(1.02);
-}
-
-.card-symbol {
-    font-size: 48px;
-    margin-bottom: 15px;
 }
 
 .family-card h2 {
     color: #704519;
-    font-size: 29px;
+    font-size: 32px;
     font-weight: 900;
     line-height: 1.8;
-    margin: 10px 0;
 }
 
-.card-subtitle {
+.family-card p {
     color: #80551f;
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1.8;
+    margin-top: 12px;
 }
 
-.click-text {
-    margin-top: 20px;
-    font-size: 17px;
-    color: #174d32;
-    font-weight: 900;
+.prayer {
+    font-size: 48px;
+    margin-bottom: 15px;
 }
 
 /* BIOGRAPHY */
 
 #biography {
     display: none;
-    margin-top: 30px;
-    padding: 25px 20px;
+    margin-top: 25px;
+    padding: 25px;
     background: #fffaf0;
     border: 2px solid #b18a50;
     border-radius: 12px;
     text-align: left;
 }
 
-.bio-title {
-    text-align: center;
+.bio-heading {
     color: #80551f;
-    font-size: 29px;
+    text-align: center;
+    font-size: 32px;
     font-weight: 900;
-    line-height: 1.7;
-    padding-bottom: 18px;
-    border-bottom: 3px solid #b18a50;
-    margin-bottom: 25px;
+    line-height: 1.8;
+    margin-bottom: 12px;
 }
 
-.bio-subtitle {
+.bio-tagline {
     color: #80551f;
-    font-size: 25px;
-    font-weight: 900;
     text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.bio-section {
+    color: #80551f;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 900;
     line-height: 1.8;
     margin: 30px 0 18px;
 }
 
 .bio-text {
-    color: #252019;
-    font-size: 22px;
+    color: #292319;
+    font-size: 23px;
     font-weight: 800;
     line-height: 2;
     text-align: justify;
@@ -140,41 +136,45 @@ header h1 {
 }
 
 .quote {
-    background: #f5ead5;
-    border-left: 5px solid #b18a50;
-    padding: 18px;
-    margin: 25px 0;
     color: #704519;
-    font-size: 23px;
+    background: #f5ead5;
+    border-left: 6px solid #b18a50;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 22px 0;
+    font-size: 25px;
     font-weight: 900;
     text-align: center;
     line-height: 1.8;
-    border-radius: 8px;
+}
+
+.source-note {
+    font-weight: 900;
 }
 
 .credit {
-    margin-top: 35px;
-    padding-top: 20px;
-    border-top: 2px solid #b18a50;
-    text-align: right;
     color: #704519;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 900;
+    text-align: right;
     line-height: 1.9;
+    border-top: 2px solid #b18a50;
+    margin-top: 30px;
+    padding-top: 20px;
 }
 
 /* BUTTONS */
 
 .button {
     display: inline-block;
-    margin: 20px 8px 5px;
-    padding: 13px 25px;
+    margin: 20px 8px;
+    padding: 14px 25px;
     background: #174d32;
     color: white;
     text-decoration: none;
     border: none;
-    border-radius: 8px;
-    font-size: 17px;
+    border-radius: 9px;
+    font-size: 19px;
     font-weight: 900;
     cursor: pointer;
 }
@@ -184,13 +184,13 @@ header h1 {
 }
 
 footer {
-    margin-top: 25px;
-    padding: 18px;
     background: #174d32;
     color: white;
-    font-size: 16px;
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 17px;
     font-weight: bold;
-    border-radius: 8px;
+    margin-top: 25px;
 }
 
 /* MOBILE */
@@ -198,18 +198,18 @@ footer {
 @media (max-width: 600px) {
 
     body {
-        padding: 10px 7px;
+        padding: 8px;
     }
 
     header h1 {
-        font-size: 24px;
+        font-size: 25px;
     }
 
-    .page-container {
-        padding: 18px 12px;
+    .container {
+        padding: 14px 10px;
     }
 
-    .main-title {
+    .page-heading {
         font-size: 26px;
     }
 
@@ -218,19 +218,27 @@ footer {
     }
 
     .family-card h2 {
-        font-size: 25px;
+        font-size: 26px;
+    }
+
+    .family-card p {
+        font-size: 19px;
     }
 
     #biography {
-        padding: 18px 12px;
+        padding: 16px 11px;
     }
 
-    .bio-title {
-        font-size: 25px;
+    .bio-heading {
+        font-size: 26px;
     }
 
-    .bio-subtitle {
-        font-size: 22px;
+    .bio-tagline {
+        font-size: 21px;
+    }
+
+    .bio-section {
+        font-size: 23px;
     }
 
     .bio-text {
@@ -240,13 +248,16 @@ footer {
     }
 
     .quote {
-        font-size: 20px;
+        font-size: 21px;
     }
 
     .credit {
-        font-size: 20px;
+        font-size: 21px;
     }
 
+    .button {
+        font-size: 17px;
+    }
 }
 
 </style>
@@ -258,26 +269,28 @@ footer {
     <h1>Kotecha Family Heritage</h1>
 </header>
 
-<div class="page-container">
+<div class="container">
 
-<h1 class="main-title">ABOUT OUR FAMILY</h1>
+<h1 class="page-heading">ABOUT OUR FAMILY</h1>
 
-<!-- FAMILY CARD -->
+<!-- CARD -->
 
-<div class="family-card" onclick="openBiography()">
+<div class="family-card" id="familyCard" role="button"
+     tabindex="0" onclick="openBiography()"
+     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openBiography();}">
 
-    <div class="card-symbol">🙏</div>
+    <div class="prayer">🙏</div>
 
     <h2>
         1008 श्री श्री<br>
         मोतीलालजी मुनिराज
     </h2>
 
-    <p class="card-subtitle">
+    <p>
         त्याग, तपस्या एवं संयममय जीवन
     </p>
 
-    <p class="click-text">
+    <p>
         पूरा परिचय पढ़ने के लिए यहाँ क्लिक करें
     </p>
 
@@ -287,11 +300,11 @@ footer {
 
 <div id="biography">
 
-<h1 class="bio-title">
+<h1 class="bio-heading">
 स्वर्गीय 1008 पूज्य श्री मोतीलालजी मुनिवर
 </h1>
 
-<h2 class="bio-subtitle">
+<h2 class="bio-tagline">
 त्याग, तपस्या, संयम एवं चारित्रमय जीवन की प्रेरणादायी गाथा
 </h2>
 
@@ -305,7 +318,9 @@ footer {
 अत्यंत संपन्न परिवार में जन्म लेने के बावजूद उनका स्वभाव अत्यंत सेवाभावी एवं परोपकारी था। प्रत्येक व्यक्ति की सहायता करना, साधु-संतों की सेवा करना, सादा जीवन व्यतीत करना तथा उच्च विचार रखना उनके जीवन के प्रमुख गुण थे।
 </p>
 
-<p>वे सदैव कहा करते थे—</p>
+<p>
+वे सदैव कहा करते थे—
+</p>
 
 <div class="quote">
 "मनुष्य जन्म से नहीं, कर्म से महान होता है।"
@@ -315,7 +330,7 @@ footer {
 उन्होंने अपने संपूर्ण जीवन में इस विचार को चरितार्थ करके दिखाया।
 </p>
 
-<h2 class="bio-subtitle">
+<h2 class="bio-section">
 पारिवारिक जीवन एवं वैराग्य की भावना
 </h2>
 
@@ -340,4 +355,141 @@ footer {
 </p>
 
 <p>
-अंत
+अंततः उन्होंने अपने छोटे-छोटे बच्चों की संपूर्ण जिम्मेदारी स्वयं उठाने का निश्चय किया और पूज्य श्री मोतीलालजी मुनिवर को दीक्षा ग्रहण करने की सहर्ष अनुमति प्रदान की।
+</p>
+
+<p>
+यह प्रसंग उनकी पत्नी के त्याग, समर्पण एवं धर्मनिष्ठा का भी अनुपम उदाहरण है।
+</p>
+
+<h2 class="bio-section">
+दीक्षा एवं संयममय जीवन
+</h2>
+
+<p>
+पूज्य श्री मोतीलालजी मुनिवर की दीक्षा विक्रम संवत् 1959 में राजस्थान के जैतारण नगर में पूज्य गुरुदेव श्री जवाहरलालजी के पावन सान्निध्य में संपन्न हुई।
+</p>
+
+<p>
+दीक्षा ग्रहण करने के पश्चात् उन्होंने लगभग ग्यारह वर्षों तक संयम, साधना एवं तपस्यापूर्ण जीवन व्यतीत किया।
+</p>
+
+<p>
+उन्होंने सांसारिक सुख-सुविधाओं का त्याग कर आत्मकल्याण के मार्ग को अपना जीवन समर्पित कर दिया।
+</p>
+
+<h2 class="bio-section">
+अंतिम समय में अद्भुत संयम एवं संथारा
+</h2>
+
+<p>
+पूज्य श्री मोतीलालजी मुनिवर के जीवन का अंतिम प्रसंग उनके अद्भुत संयम, दृढ़ निश्चय एवं तपस्वी जीवन का अत्यंत प्रेरणादायक उदाहरण है।
+</p>
+
+<p>
+दीक्षा जीवन के लगभग ग्यारह वर्ष व्यतीत करते हुए एक दिन वे अपने सहयोगी पूज्य श्री मगनमुनिजी एवं पूज्य श्री करणीमलजी के साथ विहार कर रहे थे।
+</p>
+
+<p>
+उस समय अत्यंत भीषण गर्मी पड़ रही थी। चारों ओर घना जंगल था। पूज्य श्री मोतीलालजी मुनिवर को तेज ज्वर एवं सन्निपात की पीड़ा भी थी।
+</p>
+
+<p>
+विहार के दौरान मार्ग में शीतल जल उपलब्ध हो सकता था, किंतु जैन साधु अपने व्रत एवं संयम के प्रति कितने दृढ़ होते हैं, इसका परिचय उन्होंने अपने जीवन के अंतिम क्षणों में भी दिया।
+</p>
+
+<p>
+वे अपने व्रत का भंग करके सचित्त जल ग्रहण नहीं करते थे।
+</p>
+
+<p>
+जब उनका स्वास्थ्य अत्यंत चिंताजनक हो गया, तब पूज्य श्री मगनमुनिजी उन्हें पूज्य श्री करणीमलजी के पास छोड़कर पानी की खोज में आगे गए।
+</p>
+
+<p>
+उन्हें लौटने में विलंब होता देखकर तथा प्यास की असहनीय पीड़ा को भी परम शांति एवं धैर्यपूर्वक सहन करते हुए पूज्य श्री मोतीलालजी मुनिवर ने संथारा ग्रहण कर लिया।
+</p>
+
+<p>
+अंततः उन्होंने अपने जीवन के अंतिम क्षण तक सचित्त जल ग्रहण नहीं किया और अपने संयम एवं व्रतों का पूर्ण निष्ठा से पालन करते हुए देह का त्याग किया।
+</p>
+
+<p class="source-note">
+इस प्रसंग का आधार पूज्य आनंद ऋषिजी द्वारा लिखित 'आनंद प्रवचन', भाग 5, पृष्ठ संख्या 157 है।
+</p>
+
+<h2 class="bio-section">
+भावपूर्ण श्रद्धांजलि
+</h2>
+
+<p>
+ऐसे थे हमारे पूज्य पिताजी मुनिवर!
+</p>
+
+<p>
+दृढ़ निश्चयी, संयमित जीवन जीने वाले, तपस्या एवं त्याग की प्रतिमूर्ति तथा चारित्रवान वीर आत्मा।
+</p>
+
+<p>
+उन्होंने अपने जीवन से यह संदेश दिया कि सच्ची महानता धन-संपत्ति में नहीं, बल्कि त्याग, तप, संयम, सेवा एवं आत्मबल में निहित होती है।
+</p>
+
+<p>
+उनका संपूर्ण जीवन आने वाली पीढ़ियों के लिए धर्म, त्याग एवं संयम का प्रेरणास्रोत बना रहेगा।
+</p>
+
+<div class="quote">
+ऐसी महान तपस्वी आत्मा के पावन चरणों में हम सभी का शत-शत नमन एवं विनम्र श्रद्धांजलि।
+</div>
+
+<div class="credit">
+— श्री भिमराज जी कोटेचा<br>
+नागपुर
+</div>
+
+</div>
+
+<button class="button" onclick="closeBiography()">
+कार्ड पर वापस जाएँ
+</button>
+
+</div>
+
+<br>
+
+<a href="index.html" class="button">
+Home Page पर वापस जाएँ
+</a>
+
+</div>
+
+<footer>
+© Kotecha Family Heritage
+</footer>
+
+<script>
+
+function openBiography() {
+    document.getElementById("biography").style.display = "block";
+    document.getElementById("familyCard").style.display = "none";
+
+    document.getElementById("biography").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+function closeBiography() {
+    document.getElementById("biography").style.display = "none";
+    document.getElementById("familyCard").style.display = "block";
+
+    document.getElementById("familyCard").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+</script>
+
+</body>
+</html>
