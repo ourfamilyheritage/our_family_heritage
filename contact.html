@@ -543,7 +543,10 @@ const call = document.createElement("a");
         call.href = "tel:" + phone.replace(/[^\d+]/g, "");
 
       card.appendChild(heading);
-
+const city = document.createElement("div");
+city.className = "member-id";
+city.textContent = "City: " + (member.City || "Not Available");
+card.appendChild(city);
 card.appendChild(familyID);
 
 card.appendChild(mobileNumber);
