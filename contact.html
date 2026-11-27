@@ -513,13 +513,28 @@ function showMembers() {
 
         heading.textContent = name;
 
-        const familyID = document.createElement("div");
+       const familyID = document.createElement("div");
 
-        familyID.className = "member-id";
+familyID.className = "member-id";
 
-        familyID.textContent = "Family ID: " + id;
+familyID.textContent = "Family ID: " + id;
 
-        const call = document.createElement("a");
+
+// DISPLAY MOBILE NUMBER
+const mobileNumber = document.createElement("div");
+
+mobileNumber.className = "member-id";
+
+mobileNumber.style.fontSize = "17px";
+
+mobileNumber.style.fontWeight = "bold";
+
+mobileNumber.style.color = "#174d32";
+
+mobileNumber.textContent = "Mobile: " + phone;
+
+
+const call = document.createElement("a");
 
         call.className = "call-button";
 
@@ -527,12 +542,13 @@ function showMembers() {
 
         call.href = "tel:" + phone.replace(/[^\d+]/g, "");
 
-        card.appendChild(heading);
+      card.appendChild(heading);
 
-        card.appendChild(familyID);
+card.appendChild(familyID);
 
-        card.appendChild(call);
+card.appendChild(mobileNumber);
 
+card.appendChild(call);
         list.appendChild(card);
 
     });
