@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Branches | Kotecha Family Heritage</title>
+
+<style>
+:root {
+    --forest:#214b35;
+    --green:#356b42;
+    --gold:#c69a45;
+    --cream:#f7f4eb;
+    --ink:#26352b;
+    --muted:#68766b;
+    --line:#e5e0d2;
+    --white:#fff;
+}
+
+* {
+    box-sizing:border-box;
+}
+
+body {
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+}
+
+header {
+    background:linear-gradient(125deg,#183d2b,#47764b);
+    color:white;
+    padding:25px 15px;
+    text-align:center;
+}
+
+header h1 {
+    font-size:clamp(25px,4vw,36px);
+    margin:0 0 7px;
+}
+
+header p {
+    font:italic 14px Arial,sans-serif;
+    color:#e5eadf;
+}
+
+nav {
+    background:#244d30;
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    flex-wrap:wrap;
+    padding:11px;
+}
+
+nav a {
+    color:white;
+    text-decoration:none;
+    font:14px Arial,sans-serif;
+    padding:9px 12px;
+    border-radius:20px;
+}
+
+nav a:hover,
+nav a.active {
+    background:#ffffff22;
+}
+
+main {
+    max-width:1250px;
+    margin:25px auto;
+    padding:0 16px 45px;
+}
+
+.intro {
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.eyebrow {
+    font:700 11px Arial,sans-serif;
+    letter-spacing:2px;
+    color:#a27b34;
+    text-transform:uppercase;
+}
+
+.intro h2 {
+    font-size:clamp(27px,4vw,38px);
+    color:var(--forest);
+    margin:10px 0;
+}
+
+.intro p {
+    font:15px/1.7 Arial,sans-serif;
+    color:var(--muted);
+    max-width:850px;
+    margin:auto;
+}
+
+#status {
+    text-align:center;
+    padding:18px;
+    font:15px Arial,sans-serif;
+    color:var(--forest);
+}
+
+.toolbar {
+    display:none;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.toolbar button,
+.action-button {
+    border:0;
+    border-radius:22px;
+    padding:11px 18px;
+    background:var(--green);
+    color:white;
+    cursor:pointer;
+    font:600 13px Arial,sans-serif;
+}
+
+.toolbar button:hover,
+.action-button:hover {
+    background:var(--forest);
+}
+
+.stats {
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.stat {
+    background:white;
+    border:1px solid var(--line);
+    border-radius:13px;
+    padding:13px 22px;
+    min-width:145px;
+    text-align:center;
+    box-shadow:0 4px 15px #233b2410;
+}
+
+.stat strong {
+    display:block;
+    font-size:22px;
+    color:var(--forest);
+}
+
+.stat span {
+    font:11px Arial,sans-serif;
+    color:var(--muted);
+    letter-spacing:.7px;
+    text-transform:uppercase;
+}
+
+.legend {
+    text-align:center;
+    color:var(--muted);
+    font:13px Arial,sans-serif;
+    margin:20px 0;
+}
+
+.root-card {
+    max-width:1000px;
+    margin:auto;
+    background:linear-gradient(135deg,#173e2c,#356b42);
+    color:white;
+    border:2px solid #c6a15c;
+    border-radius:18px;
+    padding:25px 18px;
+    text-align:center;
+    box-shadow:0 10px 25px #1d3b2820;
+}
+
+.root-card .small {
+    font:700 10px Arial,sans-serif;
+    letter-spacing:2px;
+    color:#e6c982;
+    text-transform:uppercase;
+}
+
+.root-card h3 {
+    font-size:clamp(21px,3vw,28px);
+    margin:10px 0;
+}
+
+.root-card p {
+    font:14px/1.6 Arial,sans-serif;
+    color:#e4eee5;
+    margin:0;
+}
+
+.root-connector {
+    width:2px;
+    height:28px;
+    background:#c7b47e;
+    margin:auto;
+}
+
+.root-children {
+    display:grid;
+    grid-template-columns:minmax(200px,.48fr) minmax(0,1.52fr);
+    gap:22px;
+    align-items:start;
+}
+
+.root-branch {
+    background:white;
+    border:1px solid var(--line);
+    border-top:5px solid var(--gold);
+    border-radius:16px;
+    padding:17px;
+    box-shadow:0 5px 18px #203b2510;
+    min-width:0;
+}
+
+.tara-branch {
+    background:#fdfcf8;
+    border-top-width:3px;
+}
+
+.lal-branch {
+    border-top-width:7px;
+    padding:22px;
+    box-shadow:0 9px 26px #203b2518;
+}
+
+.branch-heading {
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+}
+
+.badge {
+    flex:none;
+    background:#edf3e9;
+    color:var(--forest);
+    font:700 10px/1.4 Arial,sans-serif;
+    padding:7px 9px;
+    border-radius:8px;
+}
+
+.branch-heading h3 {
+    font-size:clamp(17px,2vw,24px);
+    color:var(--forest);
+    margin:1px 0 7px;
+    line-height:1.3;
+}
+
+.branch-heading p {
+    font:13px/1.6 Arial,sans-serif;
+    color:var(--muted);
+    margin:0;
+}
+
+.branch-meta {
+    border-top:1px solid var(--line);
+    margin-top:14px;
+    padding-top:11px;
+    color:var(--muted);
+    font:12px/1.5 Arial,sans-serif;
+}
+
+.group-label {
+    font:700 12px Arial,sans-serif;
+    letter-spacing:1px;
+    color:#9a7739;
+    margin:22px 0 10px;
+    text-transform:uppercase;
+}
+
+.branch-list {
+    display:grid;
+    gap:11px;
+    margin-top:10px;
+}
+
+.child-card {
+    background:#fcfbf7;
+    border:1px solid #e9e3d5;
+    border-radius:12px;
+    padding:13px;
+    min-width:0;
+}
+
+.child-top {
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+}
+
+.child-title {
+    min-width:0;
+}
+
+.child-title h4 {
+    font-size:16px;
+    color:#2c5339;
+    margin:1px 0 5px;
+    line-height:1.4;
+}
+
+.code {
+    flex:none;
+    font:700 10px Arial,sans-serif;
+    color:#8a6a2e;
+    background:#f5eedf;
+    border-radius:6px;
+    padding:6px 8px;
+    white-space:nowrap;
+}
+
+.member-count {
+    font:12px Arial,sans-serif;
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.toggle {
+    cursor:pointer;
+    border:0;
+    border-radius:20px;
+    padding:8px 14px;
+    background:#e9f0e5;
+    color:#31583b;
+    margin-top:10px;
+    font:600 12px Arial,sans-serif;
+}
+
+.toggle:hover {
+    background:#dce8d7;
+}
+
+.children {
+    margin:12px 0 0 8px;
+    padding-left:13px;
+    border-left:2px solid #e5d8b9;
+    display:grid;
+    gap:10px;
+}
+
+.children[hidden] {
+    display:none;
+}
+
+.member-row {
+    background:white;
+    border:1px solid #e7e2d7;
+    border-radius:9px;
+    padding:11px;
+    margin-top:8px;
+}
+
+.member-name {
+    font:700 14px/1.5 Arial,sans-serif;
+    color:var(--forest);
+}
+
+.member-info {
+    font:12px/1.6 Arial,sans-serif;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.member-details {
+    display:none;
+    background:#f1f5ed;
+    padding:12px;
+    border-radius:8px;
+    margin-top:9px;
+    font:12px/1.7 Arial,sans-serif;
+}
+
+.member-details.open {
+    display:block;
+}
+
+.detail-button {
+    border:0;
+    background:#e9f0e5;
+    color:#31583b;
+    border-radius:18px;
+    padding:7px 12px;
+    cursor:pointer;
+    font:600 11px Arial,sans-serif;
+    margin-top:8px;
+}
+
+.empty {
+    text-align:center;
+    padding:18px;
+    color:var(--muted);
+    font:13px Arial,sans-serif;
+}
+
+footer {
+    background:#244d30;
+    color:#e5eadf;
+    text-align:center;
+    padding:18px;
+    font:12px Arial,sans-serif;
+}
+
+@media(max-width:700px) {
+    main {
+        padding:0 11px 35px;
+    }
+
+    .root-children {
+        grid-template-columns:1fr;
+        gap:16px;
+    }
+
+    .tara-branch {
+        max-width:430px;
+        margin:auto;
+        width:100%;
+    }
+
+    .lal-branch {
+        padding:16px 12px;
+    }
+
+    .branch-heading {
+        flex-wrap:wrap;
+    }
+
+    .child-top {
+        flex-wrap:wrap;
+    }
+
+    .stat {
+        min-width:125px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Kotecha Family Heritage</h1>
+    <p>Preserving Our Past, Connecting Our Future</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="history.html">History</a>
+    <a class="active" href="branches-testing.html">Family Branches</a>
+    <a href="family-tree-testing.html">Family Tree</a>
+    <a href="contact.html">Directory</a>
+    <a href="#" onclick="logout();return false;">Logout</a>
+</nav>
+
+<main>
+
+<section class="intro">
+    <div class="eyebrow">Our Roots • Our Generations • Our Legacy</div>
+    <h2>The Kotecha Family Branches</h2>
+    <p>
+        श्री रघुनाथ मलजी कोटेचा के दो पुत्र थे —
+        श्री ताराचंदजी और श्री लालचंदजी।
+        दोनों की शाखाएँ अलग-अलग दिखाई गई हैं।
+    </p>
+</section>
+
+<div id="status">Checking login and loading family information...</div>
+
+<div class="toolbar" id="toolbar">
+    <button onclick="loadMembers()">Refresh Family Data</button>
+    <button onclick="expandAll()">Open All Branches</button>
+    <button onclick="collapseAll()">Close All Branches</button>
+</div>
+
+<div id="treeArea" style="display:none">
+
+    <div class="stats">
+        <div class="stat">
+            <strong id="totalMembers">0</strong>
+            <span>Family Members</span>
+        </div>
+        <div class="stat">
+            <strong>10</strong>
+            <span>Main Branches</span>
+        </div>
+        <div class="stat">
+            <strong id="totalCodes">0</strong>
+            <span>Branch Codes</span>
+        </div>
+    </div>
+
+    <p class="legend">
+        अगली पीढ़ी देखने के लिए किसी शाखा के नीचे
+        <b>Open Branch</b> दबाएँ।
+    </p>
+
+    <section class="root-card">
+        <div class="small">The Earliest Known Ancestor • Main Root</div>
+        <h3>Shree Raghunath Malji Kotecha</h3>
+        <p>
+            परिवार के मूल पूर्वज • इनके दो पुत्र:
+            श्री ताराचंदजी और श्री लालचंदजी
+        </p>
+    </section>
+
+    <div class="root-connector"></div>
+
+    <div class="root-children">
+
+        <section class="root-branch tara-branch">
+            <div class="branch-heading">
+                <span class="badge">SON OF RAGHUNATH MALJI</span>
+                <div>
+                    <h3>Shree Tarachandji Kotecha</h3>
+                    <p>श्री रघुनाथ मलजी कोटेचा के पुत्र।</p>
+                    <p><b>अल्पायु में निधन।</b></p>
+                </div>
+            </div>
+            <div class="branch-meta">
+                ताराचंदजी की शाखा
+            </div>
+            <div id="taraMembers"></div>
+        </section>
+
+        <section class="root-branch lal-branch">
+
+            <div class="branch-heading">
+                <span class="badge">SON OF RAGHUNATH MALJI • MAIN FAMILY LINE</span>
+                <div>
+                    <h3>Shree Lalchandji Kotecha</h3>
+                    <p>
+                        श्री रघुनाथ मलजी कोटेचा के पुत्र।
+                        इनकी शाखा से परिवार की आगे की वंश परंपरा चली।
+                    </p>
+                </div>
+            </div>
+
+            <div class="branch-meta">
+                श्री रघुनाथ मलजी कोटेचा के दूसरे पुत्र • मुख्य पारिवारिक शाखा
+            </div>
+
+            <div class="group-label">Sons' Family Branches</div>
+            <div id="sonsTree" class="branch-list"></div>
+
+            <div class="group-label">Daughters' Family Connections</div>
+            <div id="daughtersTree" class="branch-list"></div>
+
+        </section>
+
+    </div>
+</div>
+</main>
+
+<footer>
+    © Kotecha Family Heritage • Preserving our family legacy for generations to come
+</footer>
+
+<script>
+
+const API_URL = "https://ofh-family-testing.disha0806.workers.dev";
+
+let members = [];
+let branchCodes = [];
+let openBranches = new Set();
+
+function getValue(member, field) {
+    if (!member) return "";
+
+    const wanted = field.toLowerCase().replace(/_/g,"");
+
+    const key = Object.keys(member).find(k =>
+        k.toLowerCase().replace(/_/g,"") === wanted
+    );
+
+    return key ? member[key] : "";
+}
+
+function getName(member) {
+    const first = getValue(member,"First_Name") || "";
+    const middle = getValue(member,"Middle_Name") || "";
+    const last = getValue(member,"Last_Name") || "";
+
+    return [first,middle,last].filter(Boolean).join(" ")
+        || "Name not available";
+}
+
+function getFamilyId(member) {
+    return String(getValue(member,"Family_ID") || "");
+}
+
+function getBranchCode(member) {
+    return String(getValue(member,"Branch_Code") || "").trim();
+}
+
+function getGender(member) {
+    return String(getValue(member,"Gender") || "").toLowerCase();
+}
+
+function findMember(id) {
+    if (!id) return null;
+
+    return members.find(member =>
+        getFamilyId(member) === String(id)
+    );
+}
+
+function getSpouseName(member) {
+    const spouseId = getValue(member,"Spouse_ID");
+    const spouse = findMember(spouseId);
+
+    return spouse ? getName(spouse) : "";
+}
+
+async function loadMembers() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        alert("Please login first.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const status = document.getElementById("status");
+    status.textContent = "Loading family members...";
+
+    try {
+        const response = await fetch(
+            API_URL + "/api/members",
+            {
+                method:"GET",
+                headers:{
+                    "Authorization":"Bearer " + token
+                }
+            }
+        );
+
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem("token");
+            alert("Your login session has expired. Please login again.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+        }
+
+        const result = await response.json();
+
+        if (Array.isArray(result)) {
+            members = result;
+        } else {
+            members =
+                result.members ||
+                result.data ||
+                result.results ||
+                [];
+        }
+
+        if (!Array.isArray(members)) {
+            throw new Error("Members data format is incorrect.");
+        }
+
+        branchCodes = [...new Set(
+            members.map(getBranchCode).filter(Boolean)
+        )];
+
+        document.getElementById("totalMembers").textContent =
+            members.length;
+
+        document.getElementById("totalCodes").textContent =
+            branchCodes.length;
+
+        document.getElementById("treeArea").style.display = "block";
+        document.getElementById("toolbar").style.display = "flex";
+
+        status.textContent =
+            "Family information loaded successfully.";
+
+        renderBranches();
+
+    } catch(error) {
+        status.textContent =
+            "Unable to load Family Members: " + error.message;
+    }
+}
+
+function getParentCode(code) {
+    const parts = code.split("-");
+    if (parts.length <= 1) return "";
+    parts.pop();
+    return parts.join("-");
+}
+
+function getChildCodes(parentCode) {
+    return branchCodes
+        .filter(code => getParentCode(code) === parentCode)
+        .sort((a,b) => a.localeCompare(b,undefined,{numeric:true}));
+}
+
+function getMembersInCode(code) {
+    return members
+        .filter(member => getBranchCode(member) === code)
+        .sort((a,b) => getFamilyId(a).localeCompare(getFamilyId(b),undefined,{numeric:true}));
+}
+
+function makeMemberCard(member) {
+
+    const row = document.createElement("div");
+    row.className = "member-row";
+
+    const name = document.createElement("div");
+    name.className = "member-name";
+    name.textContent = getName(member);
+
+    const info = document.createElement("div");
+    info.className = "member-info";
+
+    const id = getFamilyId(member);
+    const spouse = getSpouseName(member);
+
+    info.textContent =
+        "Family ID: " + (id || "N/A") +
+        (spouse ? " • Spouse: " + spouse : "");
+
+    const button = document.createElement("button");
+    button.className = "detail-button";
+    button.textContent = "View Details";
+
+    const details = document.createElement("div");
+    details.className = "member-details";
+
+    const fields = [
+        ["Branch Code","Branch_Code"],
+        ["Gender","Gender"],
+        ["Father ID","Father_ID"],
+        ["Mother ID","Mother_ID"],
+        ["Spouse ID","Spouse_ID"],
+        ["Date of Birth","Date_Of_Birth"],
+        ["Generation","Generation"],
+        ["City","City"],
+        ["State","State"],
+        ["Country","Country"]
+    ];
+
+    fields.forEach(([label,key]) => {
+        const value = getValue(member,key);
+        if (value !== "" && value !== null && value !== undefined) {
+            const line = document.createElement("div");
+            line.textContent = label + ": " + value;
+            details.appendChild(line);
+        }
+    });
+
+    const photo = getValue(member,"Photo");
+    if (photo
